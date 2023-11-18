@@ -24,56 +24,62 @@ const CreateTrainingPage = () => {
   return (
     <>
       <header className="relative">
-        <div className="relative">
-          <div className="m-5 absolute">
-            <Link to="/registerPage">
-              <IconButton color="error">
-                <ArrowBackIcon />
-              </IconButton>
-            </Link>
-          </div>
-          <img
-            src={Images.headerImg}
-            alt="imagen gimnasio"
-            className="w-full"
-          />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <img
-              className="sm:w-28 md:w-40 lg:w-32 xl:w-48"
-              src={Images.logo}
-              alt="logo training"
-            />
+        <div className="w-full h-screen relative">
+          <div className="relative">
+            <div className="m-5 absolute">
+              <Link to="/registerPage">
+                <IconButton color="error">
+                  <ArrowBackIcon />
+                </IconButton>
+              </Link>
+            </div>
+
+            <div className="w-full h-screen relative">
+              <img
+                className="w-full h-full object-cover"
+                src={Images.headerImg}
+                alt="fondo gimnasio"
+              />
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <img
+                  className="sm:w-36 md:w-40 lg:w-32 xl:w-48 mb-20"
+                  src={Images.logo}
+                  alt="logo training"
+                />
+
+                <h1 className="uppercase tracking-wider font-medium text-xl xl:mt-8 text-center text-red mb-3 md:mb-5">
+                  Plan de entrenamiento
+                </h1>
+
+                <div className="text-center xl:mb-5">
+                  <div className="flex items-center justify-center text-red text-lg mb-2 xl:mt-0 sm:mt-5 tracking-wider">
+                    <h2>¡ Hola ! {inputData.name}</h2>
+                    <i className="bx bx-dumbbell bx-tada text-2xl ml-2" />
+                  </div>
+                  <p className="text-sm tracking-wider md:mb-5 sm:mb-10">
+                    Preparate, hoy es día de entrenamiento
+                  </p>
+                </div>
+
+                <div className="flex justify-center items-center">
+                  <BasicButtons
+                    title="Crear Plan"
+                    variant="outlined"
+                    onClick={handleOpenModal}
+                  />
+                </div>
+
+                <ModalBar
+                  open={openModal}
+                  handleClose={handleCloseModal}
+                  onClick={handleCloseModal}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </header>
-      <main>
-        <h1 className="uppercase tracking-wider font-medium   text-xl sm:mt-20 md:mt-20 xl:mt-8 text-center text-red mb-28 md:mb-10  ">
-          Plan de entrenamiento
-        </h1>
-
-        <div className="text-center xl:mb-10 ">
-          <div className="flex items-center justify-center text-red text-lg mb-6 xl:mt-0 sm:mt-10 tracking-wider">
-            <h2>¡ Hola ! {inputData.name}</h2>
-            <i className="bx bx-dumbbell bx-tada text-2xl ml-2" />
-          </div>
-          <p className="text-sm tracking-wider md:mb-10 sm:mb-20">
-            Preparate, hoy es dia de entrenamiento
-          </p>
-        </div>
-
-        <div className="flex justify-center items-center ">
-          <BasicButtons
-            title="Crear Plan"
-            variant="outlined"
-            onClick={handleOpenModal}
-          />
-        </div>
-        <ModalBar
-          open={openModal}
-          handleClose={handleCloseModal}
-          onClick={handleCloseModal}
-        />
-      </main>
     </>
   );
 };
