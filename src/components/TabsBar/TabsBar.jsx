@@ -3,7 +3,6 @@ import { useTabsContext } from "../../hooks/useTabsContext";
 import Login from "../../layout/Login/Login";
 import Register from "../../layout/Register/Register";
 
-import "./TabsBar.css";
 const TabsBar = () => {
   // Obtiene el estado de las pestañas y la función para cambiarlas del contexto
   const { value, handleChange } = useTabsContext();
@@ -12,11 +11,15 @@ const TabsBar = () => {
     <Box className="p-4">
       {/* Componente Tabs de Material-UI */}
       <Tabs
+        className="text-red "
         value={value}
         onChange={handleChange}
         sx={{
           "& .MuiTabs-indicator": {
             backgroundColor: "#FD3C3D",
+          },
+          "& .Mui-selected": {
+            color: "#FD3C3D",
           },
         }}
       >
