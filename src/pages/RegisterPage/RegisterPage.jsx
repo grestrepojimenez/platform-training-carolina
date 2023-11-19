@@ -16,14 +16,16 @@ const RegisterPage = () => {
             </IconButton>
           </Link>
         </div>
-        <div className="inset-0 items-center justify-center">
+
+        <div className="inset-0 items-center justify-center mb-10">
           <img
-            className="sm:w-28 md:w-40 lg:w-32 xl:w-48 sm:mx-auto"
+            className="sm:w-36 md:w-48 xl:w-52 sm:mx-auto"
             src={Images.logo}
             alt="logo training"
           />
         </div>
       </header>
+
       <main>
         <div className="inset-0 flex items-center justify-center mt-3">
           <TabsProvider>

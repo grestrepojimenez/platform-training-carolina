@@ -1,8 +1,13 @@
+import NavBar from "../../layout/NavBar/NavBar";
 
 const ExercisesPage = () => {
   return (
-    <div>ExercisesPage</div>
-  )
-}
+    <>
+      <header>
+        <NavBar/>
+      </header>
+    </>
+  );
+};
 
-export default ExercisesPage
+export default ExercisesPage;

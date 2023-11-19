@@ -15,7 +15,7 @@ const HomePage = () => {
         {/* Logo */}
         <div className="absolute inset-0 items-center justify-center mt-48">
           <img
-            className="sm:w-28 md:w-40 lg:w-32 xl:w-48 sm:mx-auto"
+            className="sm:w-36 md:w-48 xl:w-64 sm:mx-auto"
             src={Images.logo}
             alt="logo training"
           />

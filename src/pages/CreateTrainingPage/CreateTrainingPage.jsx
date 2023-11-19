@@ -41,14 +41,15 @@ const CreateTrainingPage = () => {
                 alt="fondo gimnasio"
               />
 
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="absolute inset-0 flex flex-col items-center justify-center ">
+
                 <img
-                  className="sm:w-36 md:w-40 lg:w-32 xl:w-48 mb-20"
+                  className="sm:w-36 md:w-48 xl:w-64 mb-28"
                   src={Images.logo}
                   alt="logo training"
                 />
 
-                <h1 className="uppercase tracking-wider font-medium text-xl xl:mt-8 text-center text-red mb-3 md:mb-5">
+                <h1 className="uppercase tracking-wider font-medium md:text-xl xl:mt-8 text-center text-red mb-3 md:mb-5">
                   Plan de entrenamiento
                 </h1>
 

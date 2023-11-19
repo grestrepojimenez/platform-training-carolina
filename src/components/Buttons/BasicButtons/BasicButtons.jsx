@@ -5,9 +5,9 @@ const BasicButtons = ({ title, icon, onClick, variant, type, disabled }) => {
   // Definir estilos de variantes para las clases de color CSS de Tailwind
   const variantToColor = {
     contained:
-      "bg-red hover:bg-red text-black tracking-wider ",
+      "bg-red hover:bg-red text-black tracking-wider px-8 ",
     outlined:
-      "border border-solid text-red text-red font-normal tracking-wider",
+      "border border-solid text-red text-red font-normal tracking-wider px-8",
   };
 
   //Obtener la clase de color CSS Tailwind correspondiente según la variante
