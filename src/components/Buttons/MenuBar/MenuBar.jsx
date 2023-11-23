@@ -10,8 +10,7 @@ import {
   Popper,
 } from "@mui/material";
 
-const MenuBar = ({ title, list }) => {
-  
+const MenuBar = ({ title, list, exercisesData, setFilteredExercises }) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -46,13 +45,18 @@ const MenuBar = ({ title, list }) => {
     prevOpen.current = open;
   }, [open]);
 
-  const handlefilter = async (filter) => {
-    console.log("Exercise selected:", filter);
+  // Filtra la informacion seleccionada
+  const handleFilter = (item) => {
+    const filteredData = exercisesData.filter(
+      (exercise) =>
+        exercise.primaryMuscles.includes(item) || exercise.equipment === item
+    );
+    setFilteredExercises(filteredData.length > 0 ? filteredData : exercisesData);
+    setOpen(false);
   };
 
-
   return (
-    <div>
+    <div className="z-50">
       <Button
         ref={anchorRef}
         id="composition-button"
@@ -91,15 +95,16 @@ const MenuBar = ({ title, list }) => {
                   onKeyDown={handleListKeyDown}
                   className="bg-black text-red px-6 capitalize "
                 >
-                  {Array.isArray(list) && list.map((exercise, index) => (
-                    <MenuItem
-                      key={index}
-                      onClick={() => handlefilter(exercise)}
-                      className="font-light tracking-wider text-sm"
-                    >
-                      {exercise}
-                    </MenuItem>
-                  ))}
+                  {Array.isArray(list) &&
+                    list.map((item, index) => (
+                      <MenuItem
+                        key={index}
+                        onClick={() => handleFilter(item)}
+                        className="font-light tracking-wider text-sm"
+                      >
+                        {item}
+                      </MenuItem>
+                    ))}
                 </MenuList>
               </ClickAwayListener>
             </Paper>

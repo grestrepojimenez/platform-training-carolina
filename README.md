@@ -4,7 +4,8 @@
 
 ![image](https://i.postimg.cc/V63MW2ZP/Movil-Registro.png)
 
-_**First Mobile y Responsive Web** La plataforma se realizo primero para moviles, pero tiene un diseño responsive para mejor navegacion_
+**First Mobile y Responsive Web** 
+_La plataforma se realizo primero para moviles, pero tiene un diseño responsive para mejor navegacion_
 
 <hr>
 
@@ -21,6 +22,7 @@ _Las herramientas con las que se construyo el proyecto son_
 - [React](https://sass-lang.com/) - Framework
 - [Material UI](https://mui.com/) - Experiencia de usuario
 - [Tailwindc ss](https://tailwindcss.com/) - Estilos css
+- [Boxicons](https://boxicons.com/) - Iconos
 - [Gym Visul](https://gymvisual.com/) - Imagenes y Gift
 - [Json Exercise DB](https://github.com/yuhonas/free-exercise-db) - Json Ejercicios
 

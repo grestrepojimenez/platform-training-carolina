@@ -85,7 +85,7 @@ const NavBar = () => {
     handleCloseUserMenu();
   };
   return (
-    <AppBar position="static" className="bg-black">
+    <AppBar position="fixed" className="bg-black">
       <Container maxWidth="xl">
         <Toolbar disableGutters className="flex justify-between items-center">
           {/* Menu Escritorio */}

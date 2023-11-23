@@ -36,7 +36,7 @@ const InputsBar = ({ id, label, icon, type, className, onClick, name }) => {
     case "name":
       validationRules.pattern = {
         value: /^[A-Za-z\s]+$/i,
-        message: "El nombre solo puede contener letras y espacios.",
+        message: "El nombre solo puede contener letras y espacios, no debe icluir tildes",
       };
       break;
 
