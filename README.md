@@ -2,14 +2,33 @@
 
 ### Plataforma de Gestión de Ejercicios y Rutinas de Fitness
 
-### Mobile First y Responsive Web
-
 ![image](https://i.postimg.cc/V63MW2ZP/Movil-Registro.png)
+
+**Mobile First y Responsive Web**
+La plataforma se realizo primero para moviles, pero tiene un diseño responsive para mejor navegacion
+
+<hr>
 
 ## Despliegue 📦
 
-[Figma URL Template](https://www.figma.com/file/iaDDH8T5tzj08DbPMtYxsG/Plataforma-Training?type=design&node-id=0-1&mode=design&t=hlSKGUCce4vFQVOP-0)
-[Despligue URL]()
+-[Figma URL Template](https://www.figma.com/file/iaDDH8T5tzj08DbPMtYxsG/Plataforma-Training?type=design&node-id=0-1&mode=design&t=hlSKGUCce4vFQVOP-0)
+-[Despligue URL]()
+
+
+## Construido con 🛠️
+
+_Las herramientas con las que se construyo el proyecto son_
+
+- [Visual Studio Code](https://code.visualstudio.com/) - IDE creacion
+- [React](https://sass-lang.com/) - Framework
+- [Material UI](https://mui.com/) - Experiencia de usuario
+- [Tailwindc ss](https://tailwindcss.com/) - Estilos css
+- [Gym Visul](https://gymvisual.com/) - Imagenes y Gift
+- [Json Exercise DB](https://github.com/yuhonas/free-exercise-db) - Json Ejercicios
+
+## Autor ✒️
+
+- [Carolina Uribe Botero](https://github.com/caro1017)
 
 <hr>
 
@@ -67,23 +86,6 @@ Eres un desarrollador/a trabajando para una empresa especializada en fitness. La
 3. **Pensando en Equipo:** Documenta tu proyecto de manera mínima pero efectiva. Añade comentarios donde sea necesario y organiza scripts en el **`package.json`**
 4. **Formateo del Código:** Utiliza herramientas como Prettier para asegurarte de que el código esté formateado de manera consistente.
 5. **Preparado para Producción:** Optimiza el código y asegúrate de que la aplicación esté lista para producción.
-
-<hr>
-
-## Construido con 🛠️
-
-_Las herramientas con las que se construyo el proyecto son_
-
-- [Visual Studio Code](https://code.visualstudio.com/) - IDE creacion
-- [React](https://sass-lang.com/) - Framework
-- [Material UI](https://mui.com/) - Experiencia de usuario
-- [Tailwindc ss](https://tailwindcss.com/) - Estilos css
-- [Gym Visula](https://gymvisual.com/) - Imagenes y Gift
-- [Json Exercise DB](https://github.com/yuhonas/free-exercise-db) - Json Ejercicios
-
-## Autor ✒️
-
-- [Carolina Uribe Botero](https://github.com/caro1017)
 
 <hr>
 
