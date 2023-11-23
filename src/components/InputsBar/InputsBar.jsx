@@ -58,7 +58,7 @@ const InputsBar = ({ id, label, icon, type, className, onClick, name }) => {
         id={id}
         InputLabelProps={{
           style: {
-            color: "#fd3c3c4b",
+            color: "#b0abab7f",
             fontWeight: 300,
           },
         }}

@@ -10,7 +10,8 @@ import {
   Popper,
 } from "@mui/material";
 
-const MenuBar = ({title}) => {
+const MenuBar = ({ title, list }) => {
+  
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
 
@@ -45,6 +46,11 @@ const MenuBar = ({title}) => {
     prevOpen.current = open;
   }, [open]);
 
+  const handlefilter = async (filter) => {
+    console.log("Exercise selected:", filter);
+  };
+
+
   return (
     <div>
       <Button
@@ -56,7 +62,7 @@ const MenuBar = ({title}) => {
         onClick={handleToggle}
         endIcon={<i className="bx bx-chevron-down" />}
         color="error"
-        className="capitalize font-light tracking-wider"
+        className="capitalize font-light tracking-wider text-xs md:text-sm "
       >
         {title}
       </Button>
@@ -85,24 +91,15 @@ const MenuBar = ({title}) => {
                   onKeyDown={handleListKeyDown}
                   className="bg-black text-red px-6 capitalize "
                 >
-                  <MenuItem
-                    onClick={handleClose}
-                    className="font-light tracking-wider text-sm"
-                  >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleClose}
-                    className="font-light tracking-wider text-sm"
-                  >
-                    My account
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleClose}
-                    className="font-light tracking-wider text-sm"
-                  >
-                    Logout
-                  </MenuItem>
+                  {Array.isArray(list) && list.map((exercise, index) => (
+                    <MenuItem
+                      key={index}
+                      onClick={() => handlefilter(exercise)}
+                      className="font-light tracking-wider text-sm"
+                    >
+                      {exercise}
+                    </MenuItem>
+                  ))}
                 </MenuList>
               </ClickAwayListener>
             </Paper>

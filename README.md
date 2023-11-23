@@ -2,7 +2,9 @@
 
 ### Plataforma de Gestión de Ejercicios y Rutinas de Fitness
 
-![image](https://i.postimg.cc/pdFLqHNF/Tablet-Registro.png)
+### Mobile First y Responsive Web
+
+![image](https://i.postimg.cc/V63MW2ZP/Movil-Registro.png)
 
 ## Despliegue 📦
 
@@ -21,37 +23,36 @@ Eres un desarrollador/a trabajando para una empresa especializada en fitness. La
 **Funcionalidad:**
 
 1. **Visualización de Ejercicios y Rutinas:**
-    - La aplicación debe mostrar una lista de ejercicios y rutinas disponibles para que los usuarios puedan explorar.
-    - Cada ejercicio o rutina debe tener información clave como nombre, categoría (aeróbico, fuerza, flexibilidad), descripción y duración estimada.
+   - La aplicación debe mostrar una lista de ejercicios y rutinas disponibles para que los usuarios puedan explorar.
+   - Cada ejercicio o rutina debe tener información clave como nombre, categoría (aeróbico, fuerza, flexibilidad), descripción y duración estimada.
 2. **Creación y Edición de Rutinas:**
-    - Los usuarios deben ser capaces de crear nuevas rutinas especificando el nombre, los ejercicios incluidos, la duración total y la categoría.
-    - Debe ser posible editar la información de una rutina existente.
+   - Los usuarios deben ser capaces de crear nuevas rutinas especificando el nombre, los ejercicios incluidos, la duración total y la categoría.
+   - Debe ser posible editar la información de una rutina existente.
 3. **Instrucciones Detalladas:**
-    - Implementa la opción de proporcionar instrucciones detalladas para cada ejercicio, incluyendo imágenes o videos explicativos.
+   - Implementa la opción de proporcionar instrucciones detalladas para cada ejercicio, incluyendo imágenes o videos explicativos.
 4. **Seguimiento de Progreso:**
-    - Permite a los usuarios registrar y seguir su progreso para cada rutina, incluyendo el peso utilizado, la distancia recorrida, o cualquier otra métrica relevante.
+   - Permite a los usuarios registrar y seguir su progreso para cada rutina, incluyendo el peso utilizado, la distancia recorrida, o cualquier otra métrica relevante.
 
 **Interacción Social:**
 
 1. **Comentarios en Ejercicios y Rutinas:**
-    - Los usuarios deben poder dejar comentarios en los ejercicios y rutinas de otros usuarios.
+   - Los usuarios deben poder dejar comentarios en los ejercicios y rutinas de otros usuarios.
 2. **Compartir Rutinas:**
-    - Implementa la capacidad de compartir rutinas entre usuarios.
+   - Implementa la capacidad de compartir rutinas entre usuarios.
 
 **Filtrado de Ejercicios y Rutinas:**
 
 1. **Filtrado por Categoría:**
-    - Permite a los usuarios filtrar los ejercicios y rutinas por categoría (aeróbico, fuerza, flexibilidad).
+   - Permite a los usuarios filtrar los ejercicios y rutinas por categoría (aeróbico, fuerza, flexibilidad).
 2. **Filtrado por Duración:**
-    - Implementa la capacidad de filtrar las rutinas por duración estimada.
+   - Implementa la capacidad de filtrar las rutinas por duración estimada.
 
 **Sincronización de Estado:**
 
 1. **Estado Global:**
-    - Debe haber una sincronización del estado global que refleje el número total de ejercicios, el número de rutinas creadas y el número de rutinas compartidas.
+   - Debe haber una sincronización del estado global que refleje el número total de ejercicios, el número de rutinas creadas y el número de rutinas compartidas.
 2. **Persistencia de Datos:**
-    - La aplicación debe persistir los datos de ejercicios, rutinas, comentarios y registros de progreso en el almacenamiento local del navegador. Al recargar la página, la información debe mantenerse.
-    
+   - La aplicación debe persistir los datos de ejercicios, rutinas, comentarios y registros de progreso en el almacenamiento local del navegador. Al recargar la página, la información debe mantenerse.
 
 **Desafíos Adicionales:**
 
@@ -77,7 +78,8 @@ _Las herramientas con las que se construyo el proyecto son_
 - [React](https://sass-lang.com/) - Framework
 - [Material UI](https://mui.com/) - Experiencia de usuario
 - [Tailwindc ss](https://tailwindcss.com/) - Estilos css
-
+- [Gym Visula](https://gymvisual.com/) - Imagenes y Gift
+- [Json Exercise DB](https://github.com/yuhonas/free-exercise-db) - Json Ejercicios
 
 ## Autor ✒️
 

@@ -105,8 +105,8 @@ const Login = () => {
           autoHideDuration={6000}
           onClose={handleCloseSnackbar}
         >
-          <Alert onClose={handleCloseSnackbar} severity="info" variant="filled">
-            Verifica tu correo y contraseña.
+          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" className="text-black">
+          ¡Error de inicio de sesión! Verifica correo y contraseña
           </Alert>
         </Snackbar>
       )}

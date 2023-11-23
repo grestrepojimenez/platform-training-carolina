@@ -121,8 +121,9 @@ const Register = () => {
             onClose={handleCloseSnackbar}
             severity="success"
             variant="filled"
+            className="text-black"
           >
-            ¡OK Información enviada!
+            ¡Registro exitoso! Inicia Sesion
           </Alert>
         </Snackbar>
       )}

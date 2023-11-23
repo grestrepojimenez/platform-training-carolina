@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   AppBar,
   Avatar,
+  Badge,
   Button,
   Container,
   IconButton,
@@ -11,15 +12,16 @@ import {
   Toolbar,
   Tooltip,
 } from "@mui/material";
+import styled from "@emotion/styled";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Images } from "../../images/Images/Images";
 import { useAvatarContext } from "../../hooks/useAvatarContext";
 
 const pages = [
-  { name: "Registro", ruta: "/registerPage" },
   { name: "Crear Rutina", ruta: "/createTrainingPage" },
   { name: "Plan Entrenamiento", ruta: "/trainingPlan" },
   { name: "Comentarios", ruta: "/comments" },
+  { name: "Cerrar Sesion", ruta: "/registerPage" },
 ];
 
 const settings = [
@@ -28,6 +30,35 @@ const settings = [
   { name: "AstraVisor", avatar: Images.avatar_3 },
   { name: "TechNova", avatar: Images.avatar_4 },
 ];
+// Estilos para el estado activo
+const StyledBadge = styled(Badge)(() => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 1px #44b700`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
 
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -136,9 +167,15 @@ const NavBar = () => {
 
           {/* Avatar */}
           <div>
-            <Tooltip title="Open settings">
+            <Tooltip title="Selecciona Avatar" >
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="avatar" src={selectedAvatar} />
+                <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                >
+                  <Avatar alt="avatar" src={selectedAvatar} />
+                </StyledBadge>
               </IconButton>
             </Tooltip>
 
