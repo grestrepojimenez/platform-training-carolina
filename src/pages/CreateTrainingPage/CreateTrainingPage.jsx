@@ -37,7 +37,7 @@ const CreateTrainingPage = () => {
             <div className="w-full h-screen relative">
               <img
                 className="w-full h-full object-cover"
-                src={Images.headerImg}
+                src={Images.bg_cratePage}
                 alt="fondo gimnasio"
               />
 

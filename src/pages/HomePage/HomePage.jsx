@@ -9,7 +9,7 @@ const HomePage = () => {
         {/* Imagen fondo */}
         <img
           className="w-full h-full object-cover"
-          src={Images.headerImg}
+          src={Images.bg_home}
           alt="fondo gimnasio"
         />
         {/* Logo */}
