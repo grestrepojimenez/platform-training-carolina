@@ -4,16 +4,14 @@
 
 ![image](https://i.postimg.cc/V63MW2ZP/Movil-Registro.png)
 
-**Mobile First y Responsive Web**
-La plataforma se realizo primero para moviles, pero tiene un diseño responsive para mejor navegacion
+_**First Mobile y Responsive Web** La plataforma se realizo primero para moviles, pero tiene un diseño responsive para mejor navegacion_
 
 <hr>
 
 ## Despliegue 📦
 
--[Figma URL Template](https://www.figma.com/file/iaDDH8T5tzj08DbPMtYxsG/Plataforma-Training?type=design&node-id=0-1&mode=design&t=hlSKGUCce4vFQVOP-0)
--[Despligue URL]()
-
+- [Figma](https://www.figma.com/file/iaDDH8T5tzj08DbPMtYxsG/Plataforma-Training?type=design&node-id=0-1&mode=design&t=hlSKGUCce4vFQVOP-0) - Diseño UX UI
+- [Despligue URL](https://platform-training.vercel.app/) - Despliegue Web site
 
 ## Construido con 🛠️
 
