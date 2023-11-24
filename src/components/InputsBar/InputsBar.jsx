@@ -3,7 +3,17 @@ import { useFormContext } from "react-hook-form";
 import { IconButton, TextField, InputAdornment } from "@mui/material";
 import { useInputContext } from "../../hooks/useInputContext";
 
-const InputsBar = ({ id, label, icon, type, className, onClick, name }) => {
+const InputsBar = ({
+  id,
+  label,
+  icon,
+  type,
+  className,
+  onClick,
+  name,
+  maxRows,
+  defaultValue,
+}) => {
   const { inputData, handleInputChange } = useInputContext();
   const {
     register,
@@ -36,7 +46,15 @@ const InputsBar = ({ id, label, icon, type, className, onClick, name }) => {
     case "name":
       validationRules.pattern = {
         value: /^[A-Za-z\s]+$/i,
-        message: "El nombre solo puede contener letras y espacios, no debe icluir tildes",
+        message:
+          "El nombre solo puede contener letras y espacios, no debe icluir tildes",
+      };
+      break;
+
+    case "number":
+      validationRules.pattern = {
+        value: /^\d+$/,
+        message: "Este campo solo puede contener números.",
       };
       break;
 
@@ -83,6 +101,9 @@ const InputsBar = ({ id, label, icon, type, className, onClick, name }) => {
         type={type}
         value={inputData[label.toLowerCase()]}
         variant="standard"
+        multiline
+        maxRows={maxRows}
+        defaultValue={defaultValue}
       />
     </>
   );

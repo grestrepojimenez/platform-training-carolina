@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Fab, Tooltip } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import NavBar from "../../layout/NavBar/NavBar";
 import { useInputContext } from "../../hooks/useInputContext";
@@ -13,7 +14,6 @@ const ExercisesPage = () => {
   const [showButton, setShowButton] = useState(false);
   const [scrollCount, setScrollCount] = useState(0);
   const [filteredExercises, setFilteredExercises] = useState(exercisesData);
-  
 
   // Obtener datos únicos de "equipment" y "primaryMuscles" del JSON
   const musclesData = [
@@ -51,7 +51,9 @@ const ExercisesPage = () => {
       <header>
         <NavBar />
       </header>
+
       <main className="justify-center relative">
+        
         <div className="mx-auto text-center">
           <p className="uppercase mb-5 text-red text-xl font-medium mt-20">
             Rutina {inputData.routineName}
@@ -83,18 +85,16 @@ const ExercisesPage = () => {
             {filteredExercises.map((exercise) => (
               <CardExercises
                 key={exercise.id}
-                name={exercise.name}
-                primaryMuscles={exercise.primaryMuscles}
-                equipment={exercise.equipment}
-                src={exercise.images}
+                exercise={exercise}
+                icon={<AddCircleIcon />}
               />
             ))}
           </div>
         </div>
 
-        <div className="fixed bottom-4 right-4">
-          <Tooltip title="Scroll to top" placement="top-start">
-            {showButton && (
+        {showButton ? (
+          <div className="fixed bottom-4 right-4">
+            <Tooltip title="Scroll to top" placement="top-start">
               <Fab
                 size="small"
                 className="bg-redOpacity hover:bg-redOpacity"
@@ -102,9 +102,9 @@ const ExercisesPage = () => {
               >
                 <KeyboardArrowUpIcon />
               </Fab>
-            )}
-          </Tooltip>
-        </div>
+            </Tooltip>
+          </div>
+        ) : null}
       </main>
     </>
   );

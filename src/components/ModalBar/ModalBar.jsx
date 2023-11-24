@@ -2,40 +2,42 @@
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { Modal } from "@mui/material";
-import { useInputContext } from "../../hooks/useInputContext";
+import { useRoutineContext } from "../../hooks/useRoutineContext";
 import InputsBar from "../InputsBar/InputsBar";
 import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
 
 const ModalBar = ({ open, handleClose, onClick }) => {
-  const { handleInputChange } = useInputContext();
+  const { handleInputChange } = useRoutineContext();
+
   const methods = useForm();
   const navigate = useNavigate();
 
-  // Función que se ejecuta al enviar el formulario
   const onSubmit = (data) => {
-    // Obtener los datos de la rutina almacenados en localStorage
-    const storedRoutine = JSON.parse(localStorage.getItem("routine")) || [];
+    let storedRoutine = JSON.parse(localStorage.getItem("routineData")) || [];
 
-    console.log(storedRoutine);
-    // Crear un nuevo objeto de rutinas con los datos del formulario
+    // Check if the stored data is an array, if not, initialize an empty array
+    if (!Array.isArray(storedRoutine)) {
+      storedRoutine = [];
+    }
+
     const newRoutine = {
       routineName: data.routineName,
     };
 
-    // Agregar el nuevo usuario al arreglo de usuarios almacenados
     storedRoutine.push(newRoutine);
 
-    // Guardar el arreglo actualizado en el localStorage
-    localStorage.setItem("routine", JSON.stringify(storedRoutine));
+    localStorage.setItem("routineData", JSON.stringify(storedRoutine));
 
     methods.reset();
+    navigate("/exercisesPage", { state: { routineName: data.routineName } });
   };
 
-  const handleNavigatation = () => {
-    methods.handleSubmit(onSubmit)();
+  const handleNavigatation = async () => {
+    const isValid = await methods.trigger(); // Trigger validation
 
-    if (methods.formState.isValid) {
-      navigate("/exercisesPage");
+    if (isValid) {
+      const formData = methods.getValues(); // Get form data
+      onSubmit(formData); // Handle form submission
     }
   };
 
@@ -66,7 +68,6 @@ const ModalBar = ({ open, handleClose, onClick }) => {
               <BasicButtons
                 title="Cancelar"
                 variant="outlined"
-                type="submit"
                 onClick={onClick}
               />
               <BasicButtons

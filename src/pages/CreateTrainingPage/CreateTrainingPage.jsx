@@ -26,6 +26,7 @@ const CreateTrainingPage = () => {
       <header className="relative">
         <div className="w-full h-screen relative">
           <div className="relative">
+            
             <div className="m-5 absolute">
               <Link to="/registerPage">
                 <IconButton color="error">

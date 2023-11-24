@@ -7,7 +7,7 @@ const BasicButtons = ({ title, icon, onClick, variant, type, disabled }) => {
     contained:
       "bg-red hover:bg-red text-black tracking-wider px-8 ",
     outlined:
-      "border border-solid text-red text-red font-normal tracking-wider px-8",
+      "border-2 border-solid text-red text-red font-normal tracking-wider px-8",
   };
 
   //Obtener la clase de color CSS Tailwind correspondiente según la variante
