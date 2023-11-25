@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { IconButton } from "@mui/material";
@@ -17,14 +16,12 @@ const ParametersExercisesPage = () => {
   const {
     routineData,
     trainingCount,
-    updateTrainingCount,
     addExerciseToRoutine,
     handleRoutineInputChange,
   } = useRoutineContext();
 
   const methods = useForm();
   const navigate = useNavigate();
-  const { reset } = methods;
   const { exerciseData } = location.state;
   const { instructions } = exerciseData;
 
@@ -37,22 +34,45 @@ const ParametersExercisesPage = () => {
     );
   }
 
-  useEffect(() => {
-    updateTrainingCount(routineData.routineName);
-  }, [routineData.routineName, updateTrainingCount]);
-
   const onSubmit = (data) => {
+    // Copiar la información del ejercicio existente
+    const cardExerciseInfo = exerciseData;
+    // Combinar la información del ejercicio con los datos del formulario
     const exerciseWithParams = {
-      ...data,
-      ...exerciseData,
+      ...cardExerciseInfo, // Se copian los datos del ejercicio
+      ...data, // Se agregan los datos del formulario
+      additionalInfo: cardExerciseInfo.additionalInfo,
     };
-    addExerciseToRoutine(routineData.routineName, exerciseWithParams);
-    reset();
-    navigate("/trainingPlanPage");
-  };
 
-  const handleInputChange = (field, value) => {
-    handleRoutineInputChange(routineData.routineName, field, value);
+    // Agregar el nuevo ejercicio al contexto
+    addExerciseToRoutine(routineData.routineName, exerciseWithParams);
+
+    // Obtener rutinas almacenadas en el localStorage (si existen)
+    const storedRoutineData =
+      JSON.parse(localStorage.getItem("routineData")) || {};
+
+    // Verificar si la rutina ya existe en el localStorage
+    const routineExists = storedRoutineData[data.routineName];
+
+    if (routineExists) {
+      // Si la rutina ya existe, agregar el ejercicio a su lista de ejercicios
+      storedRoutineData[data.routineName].exercises.push(exerciseWithParams);
+    } else {
+      // Si la rutina no existe, crearla con el ejercicio
+      storedRoutineData[data.routineName] = {
+        routineName: data.routineName,
+        exercises: [exerciseWithParams],
+      };
+    }
+
+    // Guardar las rutinas actualizadas en localStorage
+    localStorage.setItem("routineData", JSON.stringify(storedRoutineData));
+
+    // Resetear el formulario después de enviar
+    methods.reset();
+
+    // Redirigir a la página de creación de entrenamiento
+    navigate("/trainingPlanPage");
   };
 
   return (
@@ -96,7 +116,7 @@ const ParametersExercisesPage = () => {
                       icon={<i className="bx bx-list-ul" />}
                       className="mb-4"
                       onChange={(e) =>
-                        handleInputChange("seriesNumber", e.target.value)
+                        handleRoutineInputChange("seriesNumber", e.target.value)
                       }
                       contextType="routine"
                     />
@@ -108,7 +128,7 @@ const ParametersExercisesPage = () => {
                       icon={<i className="bx bx-repeat" />}
                       className="mb-4"
                       onChange={(e) =>
-                        handleInputChange("numberRepetitions", e.target.value)
+                        handleRoutineInputChange("numberRepetitions", e.target.value)
                       }
                       contextType="routine"
                     />
@@ -120,7 +140,7 @@ const ParametersExercisesPage = () => {
                       icon={<i className="bx bx-dumbbell" />}
                       className="mb-4"
                       onChange={(e) =>
-                        handleInputChange("weightLoad", e.target.value)
+                        handleRoutineInputChange("weightLoad", e.target.value)
                       }
                       contextType="routine"
                     />
@@ -132,7 +152,7 @@ const ParametersExercisesPage = () => {
                       icon={<i className="bx bx-timer" />}
                       className="mb-4"
                       onChange={(e) =>
-                        handleInputChange("averageDuration", e.target.value)
+                        handleRoutineInputChange("averageDuration", e.target.value)
                       }
                       contextType="routine"
                     />
@@ -144,7 +164,7 @@ const ParametersExercisesPage = () => {
                       icon={<i className="bx bx-file" />}
                       className="mb-4 overflow-hidden w-60"
                       onChange={(e) =>
-                        handleInputChange("instructions", e.target.value)
+                        handleRoutineInputChange("instructions", e.target.value)
                       }
                       maxRows={50}
                       isMultiline={true}

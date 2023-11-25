@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from "react";
 import { Images } from "../images/Images/Images";
@@ -27,7 +28,7 @@ export const AvatarProvider = ({ children }) => {
 export const useAvatarContext = () => {
   const context = useContext(AvatarContext);
   if (!context) {
-    throw new Error("useAvatar must be used within an AvatarProvider");
+    throw new Error("Solo usar una de las opciones de Avatar");
   }
   return context;
 };

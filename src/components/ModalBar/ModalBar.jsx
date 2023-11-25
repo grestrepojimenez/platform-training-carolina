@@ -11,17 +11,31 @@ const ModalBar = ({ open, handleClose, onClick }) => {
   const methods = useForm();
   const navigate = useNavigate();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    handleRoutineInputChange(name, value);
-  };
-
   const onSubmit = (data) => {
-    const { routineName } = data;
-    addRoutine(routineName);
+    // Agregar la nueva rutina al contexto
+    addRoutine(data.routineName);
 
+    // Obtener rutinas almacenadas en el localStorage (si existen)
+    const storedRoutineData =
+      JSON.parse(localStorage.getItem("routineData")) || {};
+
+    // Crear una nueva rutina con los datos del formulario
+    const newRoutine = {
+      routineName: data.routineName,
+      exercises: [],
+    };
+
+    // Agregar la nueva rutina a las rutinas almacenadas en localStorage
+    storedRoutineData[data.routineName] = newRoutine;
+
+    // Guardar las rutinas actualizadas en localStorage
+    localStorage.setItem("routineData", JSON.stringify(storedRoutineData));
+
+    // Resetear el formulario después de enviar
     methods.reset();
-    navigate("/exercisesPage", { state: { routineName } });
+
+    // Redirigir a la página de creación de ejercicios
+    navigate("/exercisesPage");
   };
 
   const handleNavigatation = async () => {
@@ -52,7 +66,7 @@ const ModalBar = ({ open, handleClose, onClick }) => {
                 icon={<i className="bx bx-dumbbell" />}
                 className="mb-4"
                 onChange={(e) =>
-                  handleInputChange("routineName", e.target.value)
+                  handleRoutineInputChange("routineName", e.target.value)
                 }
                 contextType="routine"
               />

@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useState, useEffect } from "react";
-import { Fab, Tooltip } from "@mui/material";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Link } from "react-router-dom";
 import { IconButton } from "@mui/material";
@@ -18,12 +16,7 @@ import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
 const ExercisesPage = () => {
   const { inputData } = useInputContext(); // Acceder al contexto
   const { routineData } = useRoutineContext();
-
   const [filteredExercises, setFilteredExercises] = useState(exercisesData);
-  const [selectedRoutine, setSelectedRoutine] = useState({
-    name: inputData.routineName,
-    exercises: [], // Almacenar ejercicios seleccionados aquí
-  });
 
   // Obtener datos únicos de "equipment" y "primaryMuscles" del JSON
   const musclesData = [
@@ -32,27 +25,6 @@ const ExercisesPage = () => {
   const equipmentData = [
     ...new Set(exercisesData.flatMap((exercise) => exercise.equipment)),
   ];
-
-  const handleExerciseSelection = (selectedExercise) => {
-    const updatedExercise = {
-      ...selectedExercise,
-      routine: inputData.routineName,
-    };
-    // Agregar los ejercicios a localStorage usando el nombre de la rutina como clave
-    const storedRoutineData =
-      JSON.parse(localStorage.getItem("routineData")) || {};
-    const existingRoutineData = storedRoutineData[inputData.routineName] || {
-      exercises: [],
-    };
-    existingRoutineData.exercises.push(updatedExercise);
-    storedRoutineData[inputData.routineName] = existingRoutineData;
-    localStorage.setItem("routineData", JSON.stringify(storedRoutineData));
-
-    setSelectedRoutine((prevRoutine) => ({
-      ...prevRoutine,
-      exercises: [...prevRoutine.exercises, selectedExercise],
-    }));
-  };
 
   return (
     <>
@@ -102,7 +74,6 @@ const ExercisesPage = () => {
                 key={exercise.id}
                 exercise={exercise}
                 icon={<AddCircleIcon />}
-                onSelect={() => handleExerciseSelection(exercise)}
               />
             ))}
           </div>
