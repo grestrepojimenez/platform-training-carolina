@@ -1,30 +1,32 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { IconButton, Fab, Tooltip } from "@mui/material";
+import { IconButton } from "@mui/material";
 import NavBar from "../../layout/NavBar/NavBar";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import { useRoutineContext } from "../../hooks/useRoutineContext";
-import { useInputContext } from "../../hooks/useInputContext";
 import CardExercises from "../../components/Cards/CardExercises/CardExercises";
 import InputsBar from "../../components/InputsBar/InputsBar";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
+import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
 
 const ParametersExercisesPage = () => {
   const location = useLocation();
-  const { routineData, trainingCount, updateTrainingCount } =
-    useRoutineContext();
-  const { handleInputChange } = useInputContext();
+  const {
+    routineData,
+    trainingCount,
+    updateTrainingCount,
+    addExerciseToRoutine,
+    handleRoutineInputChange,
+  } = useRoutineContext();
+
   const methods = useForm();
+  const navigate = useNavigate();
   const { reset } = methods;
   const { exerciseData } = location.state;
-  const [scrollCount, setScrollCount] = useState(0);
-  const [showButton, setShowButton] = useState(false);
-  const { addExerciseToRoutine, removeRoutine } = useRoutineContext();
-  updateTrainingCount(routineData.routineName);
-
+  const { instructions } = exerciseData;
 
   // Asegúrese de que los datos de ejercicio existan antes de renderizar
   if (!exerciseData) {
@@ -35,67 +37,22 @@ const ParametersExercisesPage = () => {
     );
   }
 
+  useEffect(() => {
+    updateTrainingCount(routineData.routineName);
+  }, [routineData.routineName, updateTrainingCount]);
 
   const onSubmit = (data) => {
-    // Obtener el ejercicio seleccionado de la ubicación actual
-    const { exerciseData } = location.state;
-
-    // Combinar los datos del formulario con el ejercicio seleccionado
     const exerciseWithParams = {
       ...data,
       ...exerciseData,
     };
-
-    // Agregar el ejercicio ingresado a la rutina actual en el contexto
     addExerciseToRoutine(routineData.routineName, exerciseWithParams);
-
-    // Guardar los datos del ejercicio ingresado en localStorage
-    const storedRoutineData =
-      JSON.parse(localStorage.getItem("routineData")) || {};
-
-    // Verificar si ya existen datos para esta rutina en el localStorage
-    const existingRoutineData = storedRoutineData[routineData.routineName] || {
-      exercises: [],
-    };
-
-    // Agregar el nuevo ejercicio a la lista de ejercicios para esta rutina en localStorage
-    existingRoutineData.exercises.push(data);
-
-    // Actualizar o crear la entrada para la rutina en el localStorage
-    storedRoutineData[routineData.routineName] = existingRoutineData;
-    localStorage.setItem("routineData", JSON.stringify(storedRoutineData));
-
     reset();
+    navigate("/trainingPlanPage");
   };
 
-  const { instructions } = exerciseData;
-
-  // Función para desplazar al inicio de la página
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth", // Para un desplazamiento suave
-    });
-  };
-
-  // Function to handle scroll
-  const handleScroll = () => {
-    if (window.scrollY > 100) {
-      setScrollCount((prevCount) => prevCount + 1);
-      if (scrollCount > 1) {
-        setShowButton(true);
-      }
-    } else {
-      setShowButton(false);
-    }
-  };
-
-  // Agregar el listener al evento scroll para mostrar u ocultar el botón
-  window.addEventListener("scroll", handleScroll);
-
-  const onDelete = () => {
-    // Clear exercises for the current routine in the context and localStorage
-    removeRoutine(routineData.routineName);
+  const handleInputChange = (field, value) => {
+    handleRoutineInputChange(routineData.routineName, field, value);
   };
 
   return (
@@ -113,7 +70,10 @@ const ParametersExercisesPage = () => {
         </div>
 
         <div>
-          <h2 className="uppercase mb-5 text-red text-xl font-medium mt-5 text-center">
+          <h2 className="tracking-wide mb-5 font-medium mt-5 text-center">
+            <p className="uppercase mb-5 text-red text-xl font-medium">
+              Rutina {routineData.routineName}
+            </p>
             Ejercicio {trainingCount + 1}
           </h2>
 
@@ -138,6 +98,7 @@ const ParametersExercisesPage = () => {
                       onChange={(e) =>
                         handleInputChange("seriesNumber", e.target.value)
                       }
+                      contextType="routine"
                     />
                     <InputsBar
                       id="numberRepetitions"
@@ -149,6 +110,7 @@ const ParametersExercisesPage = () => {
                       onChange={(e) =>
                         handleInputChange("numberRepetitions", e.target.value)
                       }
+                      contextType="routine"
                     />
                     <InputsBar
                       id="weightLoad"
@@ -160,6 +122,7 @@ const ParametersExercisesPage = () => {
                       onChange={(e) =>
                         handleInputChange("weightLoad", e.target.value)
                       }
+                      contextType="routine"
                     />
                     <InputsBar
                       id="averageDuration"
@@ -171,20 +134,25 @@ const ParametersExercisesPage = () => {
                       onChange={(e) =>
                         handleInputChange("averageDuration", e.target.value)
                       }
+                      contextType="routine"
                     />
                     <InputsBar
                       id="instructions"
-                      label="Instrucciones"
+                      label="Observaciones"
                       type="text"
                       name="instructions"
                       icon={<i className="bx bx-file" />}
-                      className="mb-4 overflow-hidden"
+                      className="mb-4 overflow-hidden w-60"
                       onChange={(e) =>
                         handleInputChange("instructions", e.target.value)
                       }
-                      maxRows={10}
-                      defaultValue={String(instructions).substring(0, 50)}
+                      maxRows={50}
+                      isMultiline={true}
+                      contextType="routine"
                     />
+                    <p className="text-sm tracking-wide p-5 text-justify">
+                      {instructions}
+                    </p>
                   </div>
                   <div className="md:flex mt-5 mb-16">
                     <BasicButtons
@@ -198,7 +166,6 @@ const ParametersExercisesPage = () => {
                       variant="outlined"
                       icon={<i className="bx bx-trash" />}
                       type="button"
-                      onClick={onDelete}
                     />
                   </div>
                 </form>
@@ -206,19 +173,7 @@ const ParametersExercisesPage = () => {
             </div>
           </div>
         </div>
-        {showButton ? (
-          <div className="fixed bottom-4 right-4">
-            <Tooltip title="Scroll to top" placement="top-start">
-              <Fab
-                size="small"
-                className="bg-redOpacity hover:bg-redOpacity"
-                onClick={scrollToTop}
-              >
-                <KeyboardArrowUpIcon />
-              </Fab>
-            </Tooltip>
-          </div>
-        ) : null}
+        <ScrollButton />
       </main>
     </>
   );

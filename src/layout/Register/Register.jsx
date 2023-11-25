@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { useInputContext } from "../../hooks/useInputContext";
 
-import { Alert, Snackbar } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -14,10 +13,12 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
 import FloatingButtons from "../../components/Buttons/FolatingButtons/FloatingButtons";
 import InputsBar from "../../components/InputsBar/InputsBar";
+import SnackBarCustom from "../../components/SnackBarCustom/SnackBarCustom";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  
   const { handleInputChange } = useInputContext();
   const methods = useForm();
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const Register = () => {
                 icon={<PersonIcon />}
                 className="mb-4"
                 onChange={(e) => handleInputChange("name", e.target.value)}
+                contextType="user"
               />
               <InputsBar
                 id="email"
@@ -88,6 +90,7 @@ const Register = () => {
                 icon={<MailOutlineIcon />}
                 className="mb-4"
                 onChange={(e) => handleInputChange("email", e.target.value)}
+                contextType="user"
               />
               <InputsBar
                 id="password"
@@ -97,6 +100,7 @@ const Register = () => {
                 icon={showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 onClick={handlePasswordVisibility}
                 onChange={(e) => handleInputChange("password", e.target.value)}
+                contextType="user"
               />
             </div>
 
@@ -111,22 +115,12 @@ const Register = () => {
           </form>
         </FormProvider>
       </div>
-      {snackbarOpen && (
-        <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={6000}
-          onClose={handleCloseSnackbar}
-        >
-          <Alert
-            onClose={handleCloseSnackbar}
-            severity="success"
-            variant="filled"
-            className="text-black"
-          >
-            ¡Registro exitoso! Inicia Sesion
-          </Alert>
-        </Snackbar>
-      )}
+      <SnackBarCustom
+        open={snackbarOpen} // Pass open state as prop
+        onClose={handleCloseSnackbar} // Pass close function as prop
+        severity="success"
+        message="¡Registro exitoso! Inicia Sesion"
+      />
     </>
   );
 };

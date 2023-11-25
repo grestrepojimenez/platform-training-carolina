@@ -7,29 +7,21 @@ import InputsBar from "../InputsBar/InputsBar";
 import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
 
 const ModalBar = ({ open, handleClose, onClick }) => {
-  const { handleInputChange } = useRoutineContext();
-
+  const { addRoutine, handleRoutineInputChange } = useRoutineContext();
   const methods = useForm();
   const navigate = useNavigate();
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    handleRoutineInputChange(name, value);
+  };
+
   const onSubmit = (data) => {
-    let storedRoutine = JSON.parse(localStorage.getItem("routineData")) || [];
-
-    // Check if the stored data is an array, if not, initialize an empty array
-    if (!Array.isArray(storedRoutine)) {
-      storedRoutine = [];
-    }
-
-    const newRoutine = {
-      routineName: data.routineName,
-    };
-
-    storedRoutine.push(newRoutine);
-
-    localStorage.setItem("routineData", JSON.stringify(storedRoutine));
+    const { routineName } = data;
+    addRoutine(routineName);
 
     methods.reset();
-    navigate("/exercisesPage", { state: { routineName: data.routineName } });
+    navigate("/exercisesPage", { state: { routineName } });
   };
 
   const handleNavigatation = async () => {
@@ -54,7 +46,7 @@ const ModalBar = ({ open, handleClose, onClick }) => {
             <div className="flex justify-center mt-7">
               <InputsBar
                 id="routineName"
-                label="Nombre Rutina"
+                label="Nombre nueva rutina"
                 type="text"
                 name="routineName"
                 icon={<i className="bx bx-dumbbell" />}
@@ -62,6 +54,7 @@ const ModalBar = ({ open, handleClose, onClick }) => {
                 onChange={(e) =>
                   handleInputChange("routineName", e.target.value)
                 }
+                contextType="routine"
               />
             </div>
             <div className="flex justify-center mt-10">

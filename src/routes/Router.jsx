@@ -9,6 +9,7 @@ import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import CreateTrainingPage from "../pages/CreateTrainingPage/CreateTrainingPage";
 import ExercisesPage from "../pages/ExercisesPage/ExercisesPage";
 import ParametersExercisesPage from "../pages/ParametersExercisesPage/ParametersExercisesPage";
+import TrainingPlanPage from "../pages/TrainingPlanPage/TrainingPlanPage";
 
 const Router = () => {
   return (
@@ -27,6 +28,10 @@ const Router = () => {
               <Route
                 path="/parametersExercisesPage"
                 element={<ParametersExercisesPage />}
+              />
+              <Route
+                path="/trainingPlanPage"
+                element={<TrainingPlanPage />}
               />
             </Routes>
           </AvatarProvider>

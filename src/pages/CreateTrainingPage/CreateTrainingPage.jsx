@@ -10,7 +10,6 @@ import ModalBar from "../../components/ModalBar/ModalBar";
 
 const CreateTrainingPage = () => {
   const { inputData } = useInputContext(); // Acceder al contexto
-
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -23,11 +22,18 @@ const CreateTrainingPage = () => {
 
   return (
     <>
-      <header className="relative">
-        <div className="w-full h-screen relative">
+      <header className="relative overflow-hidden">
+        <div className="w-full h-screen">
+          <div className="absolute inset-0 ">
+            <img
+              className="w-full h-full object-cover absolute top-0 left-0"
+              src={Images.bg_cratePage}
+              alt="fondo gimnasio"
+            />
+          </div>
+
           <div className="relative">
-            
-            <div className="m-5 absolute">
+            <div className="m-5">
               <Link to="/registerPage">
                 <IconButton color="error">
                   <ArrowBackIcon />
@@ -35,17 +41,10 @@ const CreateTrainingPage = () => {
               </Link>
             </div>
 
-            <div className="w-full h-screen relative">
-              <img
-                className="w-full h-full object-cover"
-                src={Images.bg_cratePage}
-                alt="fondo gimnasio"
-              />
-
-              <div className="absolute inset-0 flex flex-col items-center justify-center ">
-
+            <div className="w-full h-screen relative ">
+              <div className="absolute inset-0 flex flex-col ">
                 <img
-                  className="sm:w-36 md:w-48 xl:w-64 mb-28"
+                  className="sm:w-36 md:w-48 xl:w-64 mb-20 mx-auto"
                   src={Images.logo}
                   alt="logo training"
                 />
@@ -64,14 +63,20 @@ const CreateTrainingPage = () => {
                   </p>
                 </div>
 
-                <div className="flex justify-center items-center">
-                  <BasicButtons
-                    title="Crear Plan"
-                    variant="outlined"
-                    onClick={handleOpenModal}
-                  />
+                <div className="md:flex justify-center mt-10">
+                  <div className="flex flex-col items-center md:flex-row md:gap-4">
+                    <BasicButtons
+                      title="Crear Rutina"
+                      variant="contained"
+                      onClick={handleOpenModal}
+                    />
+                    <BasicButtons
+                      title="Ver Rutinas"
+                      variant="outlined"
+                      onClick={handleOpenModal}
+                    />
+                  </div>
                 </div>
-
                 <ModalBar
                   open={openModal}
                   handleClose={handleCloseModal}

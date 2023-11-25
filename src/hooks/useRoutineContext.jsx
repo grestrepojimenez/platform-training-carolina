@@ -1,71 +1,86 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 // hook personalizado para acceder a los valores de RoutineContext.
 const RoutineContext = createContext();
 
 // Función personalizada que devuelve el valor del contexto.
-export const useRoutineContext = () => useContext(RoutineContext);
+export const useRoutineContext = () => {
+  return useContext(RoutineContext);
+};
 
 // Proveedor de contexto que administra el estado de los input y proporciona el contexto a los componentes hijos.
 export const RoutineProvider = ({ children }) => {
-  const [routines, setRoutines] = useState([]); // Arreglo de rutinas
   const [routineData, setRoutineData] = useState({
-    routineName: "",
-    seriesNumber: "",
-    numberRepetitions: "",
-    weightLoad: "",
-    averageDuration: "",
-    instructions: "",
+    routines: {},
   });
-
   const [trainingCount, setTrainingCount] = useState(0); // Contador de entrenamientos
 
   // Función para actualizar inputData según el campo y el valor
-  const handleInputChange = (field, value) => {
+  const handleRoutineInputChange = (routineName, field, value) => {
     setRoutineData((prevData) => ({
       ...prevData,
-      [field]: value,
+      routines: {
+        ...prevData.routines,
+        [routineName]: {
+          ...prevData.routines[routineName],
+          [field]: value,
+        },
+      },
     }));
   };
 
   // Función para incrementar el contador si el nombre del entrenamiento existe
-  const updateTrainingCount = (name) => {
-    setTrainingCount(0);
-    // Aquí deberías recorrer todas las rutinas para encontrar la que coincida con el nombre y luego contar los ejercicios en esa rutina
-    routines.forEach((routine) => {
-      if (routine.routineName === name) {
-        setTrainingCount(routine.exercises.length);
-      }
-    });
+  const updateTrainingCount = (routineName) => {
+    const routine = routineData.routines[routineName];
+    if (routine) {
+      setTrainingCount(routine.exercises.length);
+    }
   };
 
   const addRoutine = (routineName) => {
-    const newRoutine = {
-      routineName: routineName,
-      exercises: [], // Aquí puedes almacenar los ejercicios de la rutina
-    };
-    setRoutines([...routines, newRoutine]);
+    setRoutineData((prevData) => ({
+      ...prevData,
+      routines: {
+        ...prevData.routines,
+        [routineName]: {
+          routineName,
+          exercises: [],
+        },
+      },
+    }));
   };
 
   const addExerciseToRoutine = (routineName, exerciseData) => {
-    const updatedRoutines = routines.map((routine) => {
-      if (routine.routineName === routineName) {
+    setRoutineData((prevData) => {
+      const targetRoutine = prevData.routines[routineName];
+      if (targetRoutine && targetRoutine.exercises) {
         return {
-          ...routine,
-          exercises: [...routine.exercises, exerciseData],
+          ...prevData,
+          routines: {
+            ...prevData.routines,
+            [routineName]: {
+              ...targetRoutine,
+              exercises: [...targetRoutine.exercises, exerciseData],
+            },
+          },
         };
       }
-      return routine;
+      // Manejar el caso en que el objetivo no exista o no tenga ejercicios definidos
+      return prevData;
     });
-    setRoutines(updatedRoutines);
   };
 
   const removeRoutine = (routineName) => {
-    const updatedRoutines = routines.filter(
-      (routine) => routine.routineName !== routineName
-    );
-    setRoutines(updatedRoutines);
+    setRoutineData((prevData) => {
+      const updatedRoutines = { ...prevData.routines };
+      delete updatedRoutines[routineName];
+      return {
+        ...prevData,
+        routines: updatedRoutines,
+      };
+    });
 
     // Remove routine data from localStorage
     const storedRoutineData =
@@ -74,11 +89,16 @@ export const RoutineProvider = ({ children }) => {
     localStorage.setItem("routineData", JSON.stringify(storedRoutineData));
   };
 
+  useEffect(() => {
+    // Guardar routineData en localStorage
+    localStorage.setItem("routineData", JSON.stringify(routineData));
+  }, [routineData]);
+
   return (
     <RoutineContext.Provider
       value={{
         routineData,
-        handleInputChange,
+        handleRoutineInputChange,
         trainingCount,
         updateTrainingCount,
         addRoutine,

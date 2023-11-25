@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useFormContext } from "react-hook-form";
 import { IconButton, TextField, InputAdornment } from "@mui/material";
+import ValidationRulesCustom from "./ValidationRulesCustom";
+
+import { useRoutineContext } from "../../hooks/useRoutineContext";
 import { useInputContext } from "../../hooks/useInputContext";
 
 const InputsBar = ({
@@ -12,58 +15,27 @@ const InputsBar = ({
   onClick,
   name,
   maxRows,
-  defaultValue,
+  isMultiline = false,
+  contextType,
 }) => {
-  const { inputData, handleInputChange } = useInputContext();
+  const { handleRoutineInputChange } = useRoutineContext();
+  const { handleInputChange } = useInputContext();
+  const validationRules = ValidationRulesCustom(type);
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    handleInputChange(name, value);
+  const handleChange = (field, value) => {
+    // Determina en qué contexto guardar la información según el prop 'contextType'
+    if (contextType === "routine") {
+      handleRoutineInputChange(field, value);
+    } else if (contextType === "user") {
+      handleInputChange(field, value);
+    } else {
+      console.log("Error! No se ingreso un Contexto existente");
+    }
   };
-
-  const validationRules = {
-    required: true,
-  };
-
-  switch (type) {
-    case "email":
-      validationRules.pattern = {
-        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-        message: "Dirección de correo electrónico no válida",
-      };
-      break;
-    case "password":
-      validationRules.minLength = {
-        value: 6,
-        message: "La contraseña debe tener al menos 6 caracteres.",
-      };
-      break;
-
-    case "name":
-      validationRules.pattern = {
-        value: /^[A-Za-z\s]+$/i,
-        message:
-          "El nombre solo puede contener letras y espacios, no debe icluir tildes",
-      };
-      break;
-
-    case "number":
-      validationRules.pattern = {
-        value: /^\d+$/,
-        message: "Este campo solo puede contener números.",
-      };
-      break;
-
-    default:
-      validationRules.pattern = {
-        message: "No debe tener campos vacios",
-      };
-      break;
-  }
 
   return (
     <>
@@ -99,11 +71,9 @@ const InputsBar = ({
         onChange={handleChange}
         required
         type={type}
-        value={inputData[label.toLowerCase()]}
         variant="standard"
-        multiline
-        maxRows={maxRows}
-        defaultValue={defaultValue}
+        multiline={isMultiline} // Aplicar condicionalmente multilínea según la propiedad
+        maxRows={isMultiline ? maxRows : undefined} //Incluir maxRows si isMultiline es verdadera
       />
     </>
   );

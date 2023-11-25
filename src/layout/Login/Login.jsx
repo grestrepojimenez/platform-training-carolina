@@ -2,7 +2,6 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { Alert, Snackbar } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GoogleIcon from "@mui/icons-material/Google";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -13,6 +12,7 @@ import { useInputContext } from "../../hooks/useInputContext";
 import InputsBar from "../../components/InputsBar/InputsBar";
 import FloatingButtons from "../../components/Buttons/FolatingButtons/FloatingButtons";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
+import SnackBarCustom from "../../components/SnackBarCustom/SnackBarCustom";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +22,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handlePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   // Función que se ejecuta al enviar el formulario
@@ -71,15 +71,20 @@ const Login = () => {
                 name="email"
                 type="email"
                 onChange={(e) => handleInputChange("email", e.target.value)}
+                contextType="user"
               />
               <InputsBar
                 icon={showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 id="password"
                 label="Password"
                 name="password"
-                onClick={handlePasswordVisibility}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handlePasswordVisibility();
+                }}
                 type={showPassword ? "text" : "password"}
                 onChange={(e) => handleInputChange("password", e.target.value)}
+                contextType="user"
               />
             </div>
 
@@ -99,17 +104,12 @@ const Login = () => {
         </FormProvider>
       </div>
 
-      {snackbarOpen && (
-        <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={6000}
-          onClose={handleCloseSnackbar}
-        >
-          <Alert onClose={handleCloseSnackbar} severity="error" variant="filled" className="text-black">
-          ¡Error de inicio de sesión! Verifica correo y contraseña
-          </Alert>
-        </Snackbar>
-      )}
+      <SnackBarCustom
+        open={snackbarOpen} // Pass open state as prop
+        onClose={handleCloseSnackbar} // Pass close function as prop
+        severity="error"
+        message="¡Error de inicio de sesión! Verifica correo y contraseña"
+      />
     </>
   );
 };

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Box, Fab } from "@mui/material";
 
-const FloatingButtons = ({ variant, icon }) => {
+const FloatingButtons = ({ variant, icon, size, onClick }) => {
   // Definir estilos de variantes para las clases de color CSS de Tailwind
   const variantToColor = {
     contained: "bg-red hover:bg-red text-black",
@@ -13,7 +13,7 @@ const FloatingButtons = ({ variant, icon }) => {
 
   return (
     <Box>
-      <Fab size="medium" className={colorClass}>
+      <Fab size={size} className={colorClass} onClick={onClick}>
         {icon}
       </Fab>
     </Box>
