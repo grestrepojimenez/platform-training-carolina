@@ -26,6 +26,11 @@ const ExercisesPage = () => {
     ...new Set(exercisesData.flatMap((exercise) => exercise.equipment)),
   ];
 
+  // Acceder a la informacion dentro del hook useRoutineContext()
+  const nameRoutine = Object.values(routineData.routines)[
+    Object.values(routineData.routines).length - 1
+  ];
+
   return (
     <>
       <header>
@@ -43,7 +48,7 @@ const ExercisesPage = () => {
 
         <div className="mx-auto text-center">
           <p className="uppercase mb-5 text-red text-xl font-medium mt-28">
-            Rutina {routineData.routineName}
+            Rutina {nameRoutine.routineName}
           </p>
           <p className="capitalize tracking-wider text-center text-red mb-5">
             ¡ Hola ! {inputData.name}

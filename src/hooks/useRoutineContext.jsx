@@ -10,7 +10,7 @@ export const useRoutineContext = () => {
   return useContext(RoutineContext);
 };
 
-// Proveedor de contexto que administra el estado de las rutinas de ejercicio y proporciona funciones para manipular los datos.
+// Proveedor de contexto que administra el estado de las rutinas de ejercicio
 export const RoutineProvider = ({ children }) => {
   // Estado local para almacenar datos de rutinas y el contador de entrenamientos.
   const [routineData, setRoutineData] = useState({

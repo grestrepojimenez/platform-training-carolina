@@ -7,9 +7,13 @@ import InputsBar from "../InputsBar/InputsBar";
 import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
 
 const ModalBar = ({ open, handleClose, onClick }) => {
+  // Uso de un enlace de contexto personalizado para acceder a rutinas y manejar entradas de rutinas
   const { addRoutine, handleRoutineInputChange } = useRoutineContext();
+  // Inicializando métodos de formulario usando el hook useForm
   const methods = useForm();
+  // Accediendo a las funcionalidades de navegación usando el gancho hook
   const navigate = useNavigate();
+
 
   const onSubmit = (data) => {
     // Agregar la nueva rutina al contexto
@@ -38,12 +42,17 @@ const ModalBar = ({ open, handleClose, onClick }) => {
     navigate("/exercisesPage");
   };
 
-  const handleNavigatation = async () => {
-    const isValid = await methods.trigger(); // Trigger validation
+  
 
+  // Función para manejar la validación y navegación del formulario.
+  const handleNavigatation = async () => {
+    // Activar la validación del formulario utilizando el método de activación de react-hook-form
+    const isValid = await methods.trigger();
+
+    //Comprueba si los datos del formulario son válidos
     if (isValid) {
-      const formData = methods.getValues(); // Get form data
-      onSubmit(formData); // Handle form submission
+      const formData = methods.getValues();
+      onSubmit(formData);
     }
   };
 

@@ -16,7 +16,6 @@ const ParametersExercisesPage = () => {
   const {
     routineData,
     trainingCount,
-    addExerciseToRoutine,
     handleRoutineInputChange,
   } = useRoutineContext();
 
@@ -24,6 +23,11 @@ const ParametersExercisesPage = () => {
   const navigate = useNavigate();
   const { exerciseData } = location.state;
   const { instructions } = exerciseData;
+
+  // Acceder a la informacion dentro del hook useRoutineContext()
+  const nameRoutine = Object.values(routineData.routines)[
+    Object.values(routineData.routines).length - 1
+  ];
 
   // Asegúrese de que los datos de ejercicio existan antes de renderizar
   if (!exerciseData) {
@@ -44,29 +48,37 @@ const ParametersExercisesPage = () => {
       additionalInfo: cardExerciseInfo.additionalInfo,
     };
 
-    // Agregar el nuevo ejercicio al contexto
-    addExerciseToRoutine(routineData.routineName, exerciseWithParams);
+    // Obtener rutina actual
+    const nameRoutine = Object.values(routineData.routines)[
+      Object.values(routineData.routines).length - 1
+    ];
+
 
     // Obtener rutinas almacenadas en el localStorage (si existen)
     const storedRoutineData =
       JSON.parse(localStorage.getItem("routineData")) || {};
 
     // Verificar si la rutina ya existe en el localStorage
-    const routineExists = storedRoutineData[data.routineName];
+    const routineExists = storedRoutineData[nameRoutine.routineName];
 
     if (routineExists) {
       // Si la rutina ya existe, agregar el ejercicio a su lista de ejercicios
-      storedRoutineData[data.routineName].exercises.push(exerciseWithParams);
+      storedRoutineData[nameRoutine.routineName].exercises.push(
+        exerciseWithParams
+      );
     } else {
       // Si la rutina no existe, crearla con el ejercicio
-      storedRoutineData[data.routineName] = {
-        routineName: data.routineName,
+      storedRoutineData[nameRoutine.routineName] = {
+        routineName: nameRoutine.routineName,
         exercises: [exerciseWithParams],
       };
     }
 
+    console.log(routineExists);
+
     // Guardar las rutinas actualizadas en localStorage
     localStorage.setItem("routineData", JSON.stringify(storedRoutineData));
+
 
     // Resetear el formulario después de enviar
     methods.reset();
@@ -92,7 +104,7 @@ const ParametersExercisesPage = () => {
         <div>
           <h2 className="tracking-wide mb-5 font-medium mt-5 text-center">
             <p className="uppercase mb-5 text-red text-xl font-medium">
-              Rutina {routineData.routineName}
+              Rutina {nameRoutine.routineName}
             </p>
             Ejercicio {trainingCount + 1}
           </h2>
@@ -103,8 +115,8 @@ const ParametersExercisesPage = () => {
 
           <div className="justify-center text-center">
             <p className="m-5">Definir parametros de entrenamiento</p>
+
             <div className="w-96 mx-auto">
-              {/* Formulario de parametros ejercicios */}
               <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                   <div className="mt-5">
@@ -128,7 +140,10 @@ const ParametersExercisesPage = () => {
                       icon={<i className="bx bx-repeat" />}
                       className="mb-4"
                       onChange={(e) =>
-                        handleRoutineInputChange("numberRepetitions", e.target.value)
+                        handleRoutineInputChange(
+                          "numberRepetitions",
+                          e.target.value
+                        )
                       }
                       contextType="routine"
                     />
@@ -152,7 +167,10 @@ const ParametersExercisesPage = () => {
                       icon={<i className="bx bx-timer" />}
                       className="mb-4"
                       onChange={(e) =>
-                        handleRoutineInputChange("averageDuration", e.target.value)
+                        handleRoutineInputChange(
+                          "averageDuration",
+                          e.target.value
+                        )
                       }
                       contextType="routine"
                     />
@@ -174,6 +192,7 @@ const ParametersExercisesPage = () => {
                       {instructions}
                     </p>
                   </div>
+
                   <div className="md:flex mt-5 mb-16">
                     <BasicButtons
                       title="Ingresar"
