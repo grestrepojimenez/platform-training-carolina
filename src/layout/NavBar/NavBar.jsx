@@ -19,7 +19,7 @@ import { useAvatarContext } from "../../hooks/useAvatarContext";
 
 const pages = [
   { name: "Crear Rutina", ruta: "/createTrainingPage" },
-  { name: "Plan Entrenamiento", ruta: "/trainingPlan" },
+  { name: "Plan Entrenamiento", ruta: "/trainingPlanPage" },
   { name: "Comentarios", ruta: "/comments" },
   { name: "Cerrar Sesion", ruta: "/registerPage" },
 ];
@@ -85,13 +85,17 @@ const NavBar = () => {
     handleCloseUserMenu();
   };
   return (
-    <AppBar position="fixed" className="bg-black">
+    <AppBar
+      position="fixed"
+      className="bg-black pb-2"
+      sx={{ top: "auto", bottom: 0 }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters className="flex justify-between items-center">
           {/* Menu Escritorio */}
           <div className="hidden lg:block">
             <Link to="/">
-              <img className="w-20" src={Images.logo} alt="logo training" />
+              <img className="w-24" src={Images.logo} alt="logo training" />
             </Link>
           </div>
 
@@ -109,6 +113,7 @@ const NavBar = () => {
             </IconButton>
 
             <Menu
+              sx={{ mt: "-65px" }}
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -144,7 +149,7 @@ const NavBar = () => {
           <div className="flex items-center justify-center">
             <Link to="/">
               <img
-                className="w-20 xl:hidden"
+                className="w-20  xl:hidden"
                 src={Images.logo}
                 alt="logo training"
               />
@@ -167,7 +172,7 @@ const NavBar = () => {
 
           {/* Avatar */}
           <div>
-            <Tooltip title="Selecciona Avatar" >
+            <Tooltip title="Selecciona Avatar">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <StyledBadge
                   overlap="circular"
@@ -180,7 +185,7 @@ const NavBar = () => {
             </Tooltip>
 
             <Menu
-              sx={{ mt: "45px" }}
+              sx={{ mt: "-65px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{

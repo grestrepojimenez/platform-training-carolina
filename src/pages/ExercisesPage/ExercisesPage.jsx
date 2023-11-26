@@ -2,8 +2,6 @@
 import { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Link } from "react-router-dom";
-import { IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import NavBar from "../../layout/NavBar/NavBar";
 import { useInputContext } from "../../hooks/useInputContext";
@@ -12,6 +10,7 @@ import MenuBar from "../../components/MenuBar/MenuBar";
 import exercisesData from "../../__mocks__/exercisesData.json";
 import CardExercises from "../../components/Cards/CardExercises/CardExercises";
 import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
+import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
 
 const ExercisesPage = () => {
   const { inputData } = useInputContext(); // Acceder al contexto
@@ -33,22 +32,18 @@ const ExercisesPage = () => {
 
   return (
     <>
-      <header>
-        <NavBar />
-      </header>
-
-      <main className="justify-center relative">
+      <div className="justify-center relative">
         <div className="absolute md:mt-2 md:ml-8 ml-3">
           <Link to="/createTrainingPage">
-            <IconButton color="error">
-              <ArrowBackIcon />
-            </IconButton>
+            <ReturnButton />
           </Link>
         </div>
 
         <div className="mx-auto text-center">
-          <p className="uppercase mb-5 text-red text-xl font-medium mt-28">
-            Rutina {nameRoutine.routineName}
+          <p className="uppercase mb-5 text-red text-xl font-medium mt-10">
+            {nameRoutine && nameRoutine.routineName
+              ? `Rutina ${nameRoutine.routineName}`
+              : "Rutina no definida"}
           </p>
           <p className="capitalize tracking-wider text-center text-red mb-5">
             ¡ Hola ! {inputData.name}
@@ -72,7 +67,7 @@ const ExercisesPage = () => {
         </div>
 
         <div className="flex mt-8 md:mt-0">
-          <div className="max-w-screen-lg mx-auto flex flex-wrap justify-center">
+          <div className="mx-auto flex flex-wrap justify-center">
             {/* Mapeo de los datos de exercisesData a las tarjetas CardExercises */}
             {filteredExercises.map((exercise) => (
               <CardExercises
@@ -83,8 +78,10 @@ const ExercisesPage = () => {
             ))}
           </div>
         </div>
+        
         <ScrollButton />
-      </main>
+        <NavBar />
+      </div>
     </>
   );
 };

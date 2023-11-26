@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { useInputContext } from "../../hooks/useInputContext";
 import { Images } from "../../images/Images/Images";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
 import ModalBar from "../../components/ModalBar/ModalBar";
+import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
 
 const CreateTrainingPage = () => {
   const { inputData } = useInputContext(); // Acceder al contexto
@@ -35,16 +34,14 @@ const CreateTrainingPage = () => {
           <div className="relative">
             <div className="m-5">
               <Link to="/registerPage">
-                <IconButton color="error">
-                  <ArrowBackIcon />
-                </IconButton>
+                <ReturnButton />
               </Link>
             </div>
 
             <div className="w-full h-screen relative ">
               <div className="absolute inset-0 flex flex-col ">
                 <img
-                  className="sm:w-36 md:w-48 xl:w-64 mb-20 mx-auto"
+                  className="sm:w-36 md:w-48 xl:w-64 mb-20 mx-auto mt-16"
                   src={Images.logo}
                   alt="logo training"
                 />

@@ -33,7 +33,7 @@ const ScrollButton = () => {
   return (
     <>
       {showButton && (
-        <div className="fixed bottom-4 right-4">
+        <div className="fixed bottom-28 right-4">
           <Tooltip title="Scroll to top" placement="top-start">
             <Fab
               size="small"

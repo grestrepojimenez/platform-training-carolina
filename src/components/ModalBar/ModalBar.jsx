@@ -7,49 +7,19 @@ import InputsBar from "../InputsBar/InputsBar";
 import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
 
 const ModalBar = ({ open, handleClose, onClick }) => {
-  // Uso de un enlace de contexto personalizado para acceder a rutinas y manejar entradas de rutinas
-  const { addRoutine, handleRoutineInputChange } = useRoutineContext();
-  // Inicializando métodos de formulario usando el hook useForm
-  const methods = useForm();
-  // Accediendo a las funcionalidades de navegación usando el gancho hook
-  const navigate = useNavigate();
-
+  const { addRoutine, handleRoutineInputChange } = useRoutineContext(); // Uso de un enlace de contexto personalizado para acceder a rutinas
+  const methods = useForm(); // Inicializando métodos de formulario usando el hook useForm
+  const navigate = useNavigate(); // Accediendo a las funcionalidades de navegación usando el gancho hook
 
   const onSubmit = (data) => {
-    // Agregar la nueva rutina al contexto
-    addRoutine(data.routineName);
-
-    // Obtener rutinas almacenadas en el localStorage (si existen)
-    const storedRoutineData =
-      JSON.parse(localStorage.getItem("routineData")) || {};
-
-    // Crear una nueva rutina con los datos del formulario
-    const newRoutine = {
-      routineName: data.routineName,
-      exercises: [],
-    };
-
-    // Agregar la nueva rutina a las rutinas almacenadas en localStorage
-    storedRoutineData[data.routineName] = newRoutine;
-
-    // Guardar las rutinas actualizadas en localStorage
-    localStorage.setItem("routineData", JSON.stringify(storedRoutineData));
-
-    // Resetear el formulario después de enviar
-    methods.reset();
-
-    // Redirigir a la página de creación de ejercicios
-    navigate("/exercisesPage");
+    addRoutine(data.routineName); // Agregar la rutina usando el nombre proporcionado en el formulario
+    methods.reset(); // Borrar los input al mandar la informacion
+    navigate("/exercisesPage"); // Redirigir a la página de creación de ejercicios
   };
-
-  
 
   // Función para manejar la validación y navegación del formulario.
   const handleNavigatation = async () => {
-    // Activar la validación del formulario utilizando el método de activación de react-hook-form
     const isValid = await methods.trigger();
-
-    //Comprueba si los datos del formulario son válidos
     if (isValid) {
       const formData = methods.getValues();
       onSubmit(formData);

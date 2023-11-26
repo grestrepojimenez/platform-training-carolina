@@ -1,23 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import { IconButton } from "@mui/material";
 import NavBar from "../../layout/NavBar/NavBar";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 import { useRoutineContext } from "../../hooks/useRoutineContext";
 import CardExercises from "../../components/Cards/CardExercises/CardExercises";
 import InputsBar from "../../components/InputsBar/InputsBar";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
 import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
+import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
 
 const ParametersExercisesPage = () => {
   const location = useLocation();
-  const {
-    routineData,
-    trainingCount,
-    handleRoutineInputChange,
-  } = useRoutineContext();
+  const { routineData, trainingCount, handleRoutineInputChange, addRoutine } =
+    useRoutineContext();
 
   const methods = useForm();
   const navigate = useNavigate();
@@ -39,70 +35,33 @@ const ParametersExercisesPage = () => {
   }
 
   const onSubmit = (data) => {
-    // Copiar la información del ejercicio existente
-    const cardExerciseInfo = exerciseData;
-    // Combinar la información del ejercicio con los datos del formulario
+    const cardExerciseInfo = exerciseData; // Copiar la información del ejercicio existente
     const exerciseWithParams = {
       ...cardExerciseInfo, // Se copian los datos del ejercicio
       ...data, // Se agregan los datos del formulario
       additionalInfo: cardExerciseInfo.additionalInfo,
     };
-
     // Obtener rutina actual
     const nameRoutine = Object.values(routineData.routines)[
       Object.values(routineData.routines).length - 1
     ];
-
-
-    // Obtener rutinas almacenadas en el localStorage (si existen)
-    const storedRoutineData =
-      JSON.parse(localStorage.getItem("routineData")) || {};
-
-    // Verificar si la rutina ya existe en el localStorage
-    const routineExists = storedRoutineData[nameRoutine.routineName];
-
-    if (routineExists) {
-      // Si la rutina ya existe, agregar el ejercicio a su lista de ejercicios
-      storedRoutineData[nameRoutine.routineName].exercises.push(
-        exerciseWithParams
-      );
-    } else {
-      // Si la rutina no existe, crearla con el ejercicio
-      storedRoutineData[nameRoutine.routineName] = {
-        routineName: nameRoutine.routineName,
-        exercises: [exerciseWithParams],
-      };
-    }
-
-    console.log(routineExists);
-
-    // Guardar las rutinas actualizadas en localStorage
-    localStorage.setItem("routineData", JSON.stringify(storedRoutineData));
-
-
-    // Resetear el formulario después de enviar
-    methods.reset();
-
-    // Redirigir a la página de creación de entrenamiento
-    navigate("/trainingPlanPage");
+    // Agregar el ejercicio a la rutina actual
+    addRoutine(nameRoutine.routineName, [exerciseWithParams]);
+    methods.reset(); // Resetear el formulario después de enviar
+    navigate("/trainingPlanPage"); // Redirigir a la página de creación de entrenamiento
   };
 
   return (
     <>
-      <header>
-        <NavBar />
-      </header>
-      <main className="justify-center relative">
-        <div className="m-3 mt-20">
+      <div className="justify-center relative">
+        <div className="m-3 mt-10">
           <Link to="/exercisesPage">
-            <IconButton color="error">
-              <ArrowBackIcon />
-            </IconButton>
+            <ReturnButton />
           </Link>
         </div>
 
         <div>
-          <h2 className="tracking-wide mb-5 font-medium mt-5 text-center">
+          <h2 className="tracking-wide mb-5 font-medium mt-5 lg:mt-0 text-center">
             <p className="uppercase mb-5 text-red text-xl font-medium">
               Rutina {nameRoutine.routineName}
             </p>
@@ -193,7 +152,7 @@ const ParametersExercisesPage = () => {
                     </p>
                   </div>
 
-                  <div className="md:flex mt-5 mb-16">
+                  <div className="md:flex mt-5 mb-28">
                     <BasicButtons
                       title="Ingresar"
                       variant="contained"
@@ -213,7 +172,8 @@ const ParametersExercisesPage = () => {
           </div>
         </div>
         <ScrollButton />
-      </main>
+        <NavBar />
+      </div>
     </>
   );
 };

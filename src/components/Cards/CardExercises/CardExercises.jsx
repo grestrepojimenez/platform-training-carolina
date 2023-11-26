@@ -21,7 +21,7 @@ const CardExercises = ({ exercise, icon, onSelect }) => {
 
   return (
     <div className="p-1">
-      <Card className="bg-grey w-96">
+      <Card className="bg-grey w-96 lg:h-40">
         <CardContent className="relative">
           <div className="flex">
             <div>
