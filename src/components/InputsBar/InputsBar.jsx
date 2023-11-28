@@ -56,7 +56,7 @@ const InputsBar = ({
           endAdornment: (
             <InputAdornment position="end">
               <IconButton onClick={onClick}>
-                <div className="text-red">{icon}</div>
+                <div className="text-red text-xl ml-2">{icon}</div>
               </IconButton>
             </InputAdornment>
           ),

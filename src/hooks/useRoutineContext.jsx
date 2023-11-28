@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const RoutineContext = createContext();
 
@@ -39,6 +40,7 @@ export const RoutineProvider = ({ children }) => {
   };
 
   const addRoutine = (routineName, exercises = []) => {
+    const idRoutine = uuidv4();
     const updatedRoutineData = {
       ...routineData,
       routines: {
@@ -46,6 +48,7 @@ export const RoutineProvider = ({ children }) => {
         [routineName]: {
           routineName,
           exercises,
+          idRoutine,
         },
       },
     };
@@ -61,6 +64,24 @@ export const RoutineProvider = ({ children }) => {
     const updatedRoutineData = {
       ...routineData,
       routines: updatedRoutines,
+    };
+
+    setRoutineData(updatedRoutineData);
+    updateLocalStorage(updatedRoutineData);
+  };
+
+  const removeExercise = (routineName, exerciseId) => {
+    const updatedRoutineData = {
+      ...routineData,
+      routines: {
+        ...routineData.routines,
+        [routineName]: {
+          ...routineData.routines[routineName],
+          exercises: routineData.routines[routineName].exercises.filter(
+            (exercise) => exercise.id !== exerciseId
+          ),
+        },
+      },
     };
 
     setRoutineData(updatedRoutineData);
@@ -83,6 +104,7 @@ export const RoutineProvider = ({ children }) => {
         updateTrainingCount,
         addRoutine,
         removeRoutine,
+        removeExercise,
       }}
     >
       {children}

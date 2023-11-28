@@ -2,6 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { Modal } from "@mui/material";
+
 import { useRoutineContext } from "../../hooks/useRoutineContext";
 import InputsBar from "../InputsBar/InputsBar";
 import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
@@ -24,6 +25,7 @@ const ModalBar = ({ open, handleClose, onClick }) => {
       const formData = methods.getValues();
       onSubmit(formData);
     }
+    
   };
 
   return (

@@ -5,7 +5,6 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 const ScrollButton = () => {
   const [showButton, setShowButton] = useState(false);
-  const [scrollCount, setScrollCount] = useState(0);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -15,20 +14,20 @@ const ScrollButton = () => {
   };
 
   const handleScroll = () => {
-    if (window.scrollY > 100) {
-      setScrollCount((prevCount) => prevCount + 1);
-      if (scrollCount > 1) {
+    // Usamos requestAnimationFrame para optimizar el evento de scroll
+    requestAnimationFrame(() => {
+      if (window.scrollY > 100) {
         setShowButton(true);
+      } else {
+        setShowButton(false);
       }
-    } else {
-      setShowButton(false);
-    }
+    });
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollCount]);
+  }, []);
   
   return (
     <>

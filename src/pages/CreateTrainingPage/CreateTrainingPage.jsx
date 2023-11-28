@@ -67,11 +67,13 @@ const CreateTrainingPage = () => {
                       variant="contained"
                       onClick={handleOpenModal}
                     />
-                    <BasicButtons
-                      title="Ver Rutinas"
-                      variant="outlined"
-                      onClick={handleOpenModal}
-                    />
+                    <Link to="/trainingPlanPage">
+                      <BasicButtons
+                        title="Ver Rutinas"
+                        variant="outlined"
+                        onClick={handleOpenModal}
+                      />
+                    </Link>
                   </div>
                 </div>
                 <ModalBar

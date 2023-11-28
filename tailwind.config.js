@@ -13,6 +13,7 @@ export default {
     colors: {
       black: "#191A1F", // Color Principal
       white: "#b0abab", // Color texto
+      whiteOpacity: "#b0abab7f", // Color texto
       red: "#FD3C3D", //Color contraste
       redOpacity: "#fd3c3da8", //Color contraste
       grey: "#F5F7F914" // Color Card

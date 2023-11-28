@@ -4,7 +4,6 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Link } from "react-router-dom";
 
 import NavBar from "../../layout/NavBar/NavBar";
-import { useInputContext } from "../../hooks/useInputContext";
 import { useRoutineContext } from "../../hooks/useRoutineContext";
 import MenuBar from "../../components/MenuBar/MenuBar";
 import exercisesData from "../../__mocks__/exercisesData.json";
@@ -13,7 +12,6 @@ import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
 import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
 
 const ExercisesPage = () => {
-  const { inputData } = useInputContext(); // Acceder al contexto
   const { routineData } = useRoutineContext();
   const [filteredExercises, setFilteredExercises] = useState(exercisesData);
 
@@ -40,13 +38,8 @@ const ExercisesPage = () => {
         </div>
 
         <div className="mx-auto text-center">
-          <p className="uppercase mb-5 text-red text-xl font-medium mt-10">
-            {nameRoutine && nameRoutine.routineName
-              ? `Rutina ${nameRoutine.routineName}`
-              : "Rutina no definida"}
-          </p>
-          <p className="capitalize tracking-wider text-center text-red mb-5">
-            ¡ Hola ! {inputData.name}
+          <p className="uppercase mb-5 text-red font-medium mt-14 ">
+            Rutina - {nameRoutine.routineName}
           </p>
           <p>Selecciona los ejercicios para la rutina</p>
         </div>
@@ -67,7 +60,7 @@ const ExercisesPage = () => {
         </div>
 
         <div className="flex mt-8 md:mt-0">
-          <div className="mx-auto flex flex-wrap justify-center">
+          <div className="mx-auto flex flex-wrap justify-center lg:justify-start lg:ml-52">
             {/* Mapeo de los datos de exercisesData a las tarjetas CardExercises */}
             {filteredExercises.map((exercise) => (
               <CardExercises
@@ -78,7 +71,7 @@ const ExercisesPage = () => {
             ))}
           </div>
         </div>
-        
+
         <ScrollButton />
         <NavBar />
       </div>

@@ -1,14 +1,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
-import NavBar from "../../layout/NavBar/NavBar";
 
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import BalanceIcon from "@mui/icons-material/Balance";
+
+import NavBar from "../../layout/NavBar/NavBar";
 import { useRoutineContext } from "../../hooks/useRoutineContext";
+import SelectBar from "../../components/Buttons/SelectBar/SelectBar";
 import CardExercises from "../../components/Cards/CardExercises/CardExercises";
 import InputsBar from "../../components/InputsBar/InputsBar";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
 import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
 import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
+import ParameterList from "./ParameterList";
 
 const ParametersExercisesPage = () => {
   const location = useLocation();
@@ -19,6 +27,13 @@ const ParametersExercisesPage = () => {
   const navigate = useNavigate();
   const { exerciseData } = location.state;
   const { instructions } = exerciseData;
+
+  const optionList = ParameterList();
+
+  const [selectedSeriesValue, setSelectedSeriesValue] = useState(0);
+  const [numberRepetitionsValue, setNumberRepetitionsValue] = useState(0);
+  const [averageDurationValue, setAverageDurationValue] = useState(0);
+  const [weightLoadValue, setWeightLoad] = useState(0);
 
   // Acceder a la informacion dentro del hook useRoutineContext()
   const nameRoutine = Object.values(routineData.routines)[
@@ -36,15 +51,22 @@ const ParametersExercisesPage = () => {
 
   const onSubmit = (data) => {
     const cardExerciseInfo = exerciseData; // Copiar la información del ejercicio existente
+
     const exerciseWithParams = {
-      ...cardExerciseInfo, // Se copian los datos del ejercicio
-      ...data, // Se agregan los datos del formulario
+      ...cardExerciseInfo,
+      selectedSeries: parseInt(selectedSeriesValue),
+      numberRepetitions: parseInt(numberRepetitionsValue),
+      averageDuration: parseInt(averageDurationValue),
+      weightLoad: parseInt(weightLoadValue),
       additionalInfo: cardExerciseInfo.additionalInfo,
+      instructions: data.instructions,
     };
+
     // Obtener rutina actual
     const nameRoutine = Object.values(routineData.routines)[
       Object.values(routineData.routines).length - 1
     ];
+
     // Agregar el ejercicio a la rutina actual
     addRoutine(nameRoutine.routineName, [exerciseWithParams]);
     methods.reset(); // Resetear el formulario después de enviar
@@ -62,8 +84,8 @@ const ParametersExercisesPage = () => {
 
         <div>
           <h2 className="tracking-wide mb-5 font-medium mt-5 lg:mt-0 text-center">
-            <p className="uppercase mb-5 text-red text-xl font-medium">
-              Rutina {nameRoutine.routineName}
+            <p className="uppercase mb-5 text-red font-medium mt-14 tracking-widest">
+              Rutina - {nameRoutine.routineName}
             </p>
             Ejercicio {trainingCount + 1}
           </h2>
@@ -79,67 +101,69 @@ const ParametersExercisesPage = () => {
               <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit)}>
                   <div className="mt-5">
-                    <InputsBar
-                      id="seriesNumber"
-                      label="Numero de Series"
-                      type="number"
-                      name="seriesNumber"
-                      icon={<i className="bx bx-list-ul" />}
-                      className="mb-4"
-                      onChange={(e) =>
-                        handleRoutineInputChange("seriesNumber", e.target.value)
-                      }
-                      contextType="routine"
+                    <SelectBar
+                      id="selectedSeries"
+                      name="selectedSeries"
+                      option={optionList.series}
+                      title="Numero Series"
+                      icon={FormatListBulletedIcon}
+                      onSelectChange={(selectedValue) => {
+                        handleRoutineInputChange(
+                          "selectedSeries",
+                          selectedValue
+                        );
+                        setSelectedSeriesValue(selectedValue); // Actualiza el estado con el valor seleccionado
+                      }}
                     />
-                    <InputsBar
+                    <SelectBar
                       id="numberRepetitions"
-                      label="Numero de Rep"
-                      type="number"
                       name="numberRepetitions"
-                      icon={<i className="bx bx-repeat" />}
-                      className="mb-4"
-                      onChange={(e) =>
+                      option={optionList.repetitions}
+                      title="Numero Rep"
+                      icon={RepeatIcon}
+                      onSelectChange={(selectedValue) => {
                         handleRoutineInputChange(
                           "numberRepetitions",
-                          e.target.value
-                        )
-                      }
-                      contextType="routine"
+                          selectedValue
+                        );
+                        setNumberRepetitionsValue(selectedValue); // Actualiza el estado con el valor seleccionado
+                      }}
                     />
-                    <InputsBar
-                      id="weightLoad"
-                      label="Peso a cargar (Kg)"
-                      type="number"
-                      name="weightLoad"
-                      icon={<i className="bx bx-dumbbell" />}
-                      className="mb-4"
-                      onChange={(e) =>
-                        handleRoutineInputChange("weightLoad", e.target.value)
-                      }
-                      contextType="routine"
-                    />
-                    <InputsBar
+
+                    <SelectBar
                       id="averageDuration"
-                      label="Duracion Prom (min)"
-                      type="number"
                       name="averageDuration"
-                      icon={<i className="bx bx-timer" />}
-                      className="mb-4"
-                      onChange={(e) =>
+                      option={optionList.averageDuration}
+                      title="Duracion Total Ejercicio"
+                      icon={AccessTimeIcon}
+                      onSelectChange={(selectedValue) => {
                         handleRoutineInputChange(
                           "averageDuration",
-                          e.target.value
-                        )
-                      }
-                      contextType="routine"
+                          selectedValue
+                        );
+                        setAverageDurationValue(selectedValue); // Actualiza el estado con el valor seleccionado
+                      }}
                     />
+
+                    <SelectBar
+                      id="weightLoad"
+                      name="weightLoad"
+                      option={optionList.weightLoad}
+                      title="Peso a cargar (Lib)"
+                      icon={BalanceIcon}
+                      onSelectChange={(selectedValue) => {
+                        handleRoutineInputChange("weightLoad", selectedValue);
+                        setWeightLoad(selectedValue); // Actualiza el estado con el valor seleccionado
+                      }}
+                    />
+
                     <InputsBar
                       id="instructions"
                       label="Observaciones"
                       type="text"
                       name="instructions"
                       icon={<i className="bx bx-file" />}
-                      className="mb-4 overflow-hidden w-60"
+                      className="mb-4 overflow-hidden w-56"
                       onChange={(e) =>
                         handleRoutineInputChange("instructions", e.target.value)
                       }
