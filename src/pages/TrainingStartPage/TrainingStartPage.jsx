@@ -7,6 +7,7 @@ import NavBar from "../../layout/NavBar/NavBar";
 import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
 import CardTraining from "../../components/Cards/CardTraining/CardTraining";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
+import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
 
 const TrainingStartPage = () => {
   const { routineName } = useParams();
@@ -30,9 +31,12 @@ const TrainingStartPage = () => {
   return (
     <>
       <div>
-        <Link to="/trainingPlanPage">
-          <ReturnButton />
-        </Link>
+        <div>
+          <Link to="/trainingPlanPage">
+            <ReturnButton />
+          </Link>
+        </div>
+
         {selectedRoutine ? (
           <div>
             <div className="text-center tracking-wider">
@@ -61,11 +65,13 @@ const TrainingStartPage = () => {
               </div>
 
               <div>
-                <Tooltip title="Play rutina">
-                  <IconButton color="error" aria-label="Play rutina">
-                    <i className="bx bx-play" />
-                  </IconButton>
-                </Tooltip>
+                <Link to={`/routinePage/${routineName}`}>
+                  <Tooltip title="Play rutina">
+                    <IconButton color="error" aria-label="Play rutina">
+                      <i className="bx bx-play" />
+                    </IconButton>
+                  </Tooltip>
+                </Link>
               </div>
             </div>
 
@@ -95,13 +101,16 @@ const TrainingStartPage = () => {
           <div>Rutina no encontrada</div>
         )}
 
-        <Link to="/exercisesPage">
-          <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-10">
+          <Link to={`/exercisesPage/${routineName}`}>
             <BasicButtons title="Agregar Ejercicio" variant="outlined" />
-          </div>
-        </Link>
+          </Link>
+        </div>
 
-        <NavBar />
+        <ScrollButton />
+        <div className="pb-24">
+          <NavBar />
+        </div>
       </div>
     </>
   );

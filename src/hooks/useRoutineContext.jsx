@@ -57,6 +57,26 @@ export const RoutineProvider = ({ children }) => {
     updateLocalStorage(updatedRoutineData);
   };
 
+  const addExerciseToRoutine = (routineName, newExercise) => {
+    const updatedRoutineData = {
+      ...routineData,
+      routines: {
+        ...routineData.routines,
+        [routineName]: {
+          ...routineData.routines[routineName],
+          exercises: [
+            ...(routineData.routines[routineName]?.exercises || []), // Maintain existing exercises
+            newExercise, // Add the new exercise
+          ],
+        },
+      },
+    };
+
+    setRoutineData(updatedRoutineData);
+    updateLocalStorage(updatedRoutineData);
+  };
+
+
   const removeRoutine = (routineName) => {
     const updatedRoutines = { ...routineData.routines };
     delete updatedRoutines[routineName];
@@ -105,6 +125,7 @@ export const RoutineProvider = ({ children }) => {
         addRoutine,
         removeRoutine,
         removeExercise,
+        addExerciseToRoutine, 
       }}
     >
       {children}

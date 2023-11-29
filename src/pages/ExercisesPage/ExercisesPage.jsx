@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import NavBar from "../../layout/NavBar/NavBar";
 import { useRoutineContext } from "../../hooks/useRoutineContext";
@@ -13,6 +13,7 @@ import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
 
 const ExercisesPage = () => {
   const { routineData } = useRoutineContext();
+  const { routineName } = useParams();
   const [filteredExercises, setFilteredExercises] = useState(exercisesData);
 
   // Obtener datos únicos de "equipment" y "primaryMuscles" del JSON
@@ -67,13 +68,16 @@ const ExercisesPage = () => {
                 key={exercise.id}
                 exercise={exercise}
                 icon={<AddCircleIcon />}
+                routineName={nameRoutine.routineName}
               />
             ))}
           </div>
         </div>
 
         <ScrollButton />
-        <NavBar />
+        <div className="pb-24">
+          <NavBar />
+        </div>
       </div>
     </>
   );

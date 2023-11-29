@@ -25,7 +25,8 @@ const CardTraining = ({
         <CardActionArea>
           <CardContent className="relative">
             <div>
-              <div className="flex pb-5">
+
+              <div className="relative flex pb-5">
                 <div>
                   <img
                     className="w-20 lg:w-24 rounded"
@@ -40,13 +41,15 @@ const CardTraining = ({
                   <p className="mt-5 xl:mt-10 text-xs">{equipment}</p>
                 </div>
 
-                <Tooltip title="Numero de ejercicio">
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center ml-20 border border-red">
-                    <p className="text-xs text-red font-medium">
-                      {exerciseNumber}
-                    </p>
-                  </div>
-                </Tooltip>
+                <div className="absolute top-0 right-0 flex">
+                  <Tooltip title="Numero de ejercicio">
+                    <div className=" w-6 h-6 rounded-full flex items-center justify-center border border-red">
+                      <p className="text-xs text-red font-medium">
+                        {exerciseNumber}
+                      </p>
+                    </div>
+                  </Tooltip>
+                </div>
               </div>
 
               <hr />

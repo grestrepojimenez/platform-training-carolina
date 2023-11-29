@@ -2,13 +2,15 @@
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, IconButton } from "@mui/material";
 
-const CardExercises = ({ exercise, icon, onSelect }) => {
+const CardExercises = ({ exercise, icon, onSelect , routineName }) => {
   const navigate = useNavigate();
+  const { name, primaryMuscles, equipment, images } = exercise;
 
   const handleClick = () => {
-    navigate("/parametersExercisesPage", {
+    navigate(`/parametersExercisesPage/${routineName}/${name}`, {
       state: {
         exerciseData: exercise,
+        routineName: routineName,
       },
     });
     // Llamamos a la función onSelect para manejar la selección de la tarjeta
@@ -16,8 +18,6 @@ const CardExercises = ({ exercise, icon, onSelect }) => {
       onSelect(exercise);
     }
   };
-
-  const { name, primaryMuscles, equipment, images } = exercise;
 
   return (
     <div className="p-1">

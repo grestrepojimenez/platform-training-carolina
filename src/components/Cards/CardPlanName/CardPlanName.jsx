@@ -13,31 +13,31 @@ const CardPlanName = ({ routineName }) => {
 
   return (
     <div className="p-1">
-      <Link to={`/trainingStartPage/${routineName}`}>
-        <Card className="bg-grey w-96">
-          <CardActionArea>
-            <CardContent>
-              <div className="flex justify-between items-center tracking-wide capitalize">
-                <IconButton
-                  color="error"
-                  aria-label="eliminar"
-                  onClick={handleDelete}
-                >
-                  <i className="bx bx-trash" />
-                </IconButton>
+      <Card className="bg-grey w-96">
+        <CardActionArea>
+          <CardContent>
+            <div className="flex justify-between items-center tracking-wide capitalize">
+              <IconButton
+                color="error"
+                aria-label="eliminar"
+                onClick={handleDelete}
+              >
+                <i className="bx bx-trash" />
+              </IconButton>
 
-                <h3 className="text-white">{routineName}</h3>
+              <h3 className="text-white">{routineName}</h3>
 
-                <div>
+              <div>
+                <Link to={`/trainingStartPage/${routineName}`}>
                   <IconButton color="error" aria-label="ver rutina">
                     <i className="bx bx-dumbbell" />
                   </IconButton>
-                </div>
+                </Link>
               </div>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Link>
+            </div>
+          </CardContent>
+        </CardActionArea>
+      </Card>
     </div>
   );
 };

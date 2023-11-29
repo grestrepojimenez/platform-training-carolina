@@ -20,7 +20,7 @@ import ParameterList from "./ParameterList";
 
 const ParametersExercisesPage = () => {
   const location = useLocation();
-  const { routineData, trainingCount, handleRoutineInputChange, addRoutine } =
+  const { routineData, handleRoutineInputChange, addExerciseToRoutine } =
     useRoutineContext();
 
   const methods = useForm();
@@ -68,7 +68,7 @@ const ParametersExercisesPage = () => {
     ];
 
     // Agregar el ejercicio a la rutina actual
-    addRoutine(nameRoutine.routineName, [exerciseWithParams]);
+    addExerciseToRoutine(nameRoutine.routineName, exerciseWithParams);
     methods.reset(); // Resetear el formulario después de enviar
     navigate("/trainingPlanPage"); // Redirigir a la página de creación de entrenamiento
   };
@@ -83,12 +83,9 @@ const ParametersExercisesPage = () => {
         </div>
 
         <div>
-          <h2 className="tracking-wide mb-5 font-medium mt-5 lg:mt-0 text-center">
-            <p className="uppercase mb-5 text-red font-medium mt-14 tracking-widest">
-              Rutina - {nameRoutine.routineName}
-            </p>
-            Ejercicio {trainingCount + 1}
-          </h2>
+          <p className="uppercase mb-5 text-red font-medium mt-14 tracking-widest lg:mt-0 text-center">
+            Rutina - {nameRoutine.routineName}
+          </p>
 
           <div className="flex justify-center mb-5">
             <CardExercises exercise={exerciseData} />
@@ -169,6 +166,7 @@ const ParametersExercisesPage = () => {
                       }
                       maxRows={50}
                       isMultiline={true}
+                      defaultValue={nameRoutine.instructions}
                       contextType="routine"
                     />
                     <p className="text-sm tracking-wide p-5 text-justify">
@@ -176,18 +174,12 @@ const ParametersExercisesPage = () => {
                     </p>
                   </div>
 
-                  <div className="md:flex mt-5 mb-28">
+                  <div className="md:flex mt-5 mb-28 justify-center">
                     <BasicButtons
                       title="Ingresar"
                       variant="contained"
                       icon={<i className="bx bx-check" />}
                       type="submit"
-                    />
-                    <BasicButtons
-                      title="Eliminar"
-                      variant="outlined"
-                      icon={<i className="bx bx-trash" />}
-                      type="button"
                     />
                   </div>
                 </form>

@@ -17,6 +17,7 @@ const InputsBar = ({
   maxRows,
   isMultiline = false,
   contextType,
+  defaultValue,
 }) => {
   const { handleRoutineInputChange } = useRoutineContext();
   const { handleInputChange } = useInputContext();
@@ -74,6 +75,7 @@ const InputsBar = ({
         variant="standard"
         multiline={isMultiline} // Aplicar condicionalmente multilínea según la propiedad
         maxRows={isMultiline ? maxRows : undefined} //Incluir maxRows si isMultiline es verdadera
+        defaultValue={defaultValue}
       />
     </>
   );
