@@ -1,17 +1,45 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Step, StepLabel, Stepper } from "@mui/material";
 import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
 import CardTraining from "../Cards/CardTraining/CardTraining";
 import "./StepperTraining.css";
 import AccordionBar from "../AccordionBar/AccordionBar";
-import CardCheckbox from "../Cards/CardCheckbox/CardCheckbox";
+import CardCheck from "../Cards/CardCheck/CardCheck";
+import SnackBarCustom from "../SnackBarCustom/SnackBarCustom";
 
 const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [cardChecksStatus, setCardChecksStatus] = useState([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  useEffect(() => {
+    if (selectedRoutine && selectedRoutine.exercises) {
+      // Al cambiar de paso, resetea el estado de las CardCheck
+      setCardChecksStatus(
+        Array(selectedRoutine.exercises[activeStep].selectedSeries).fill(false)
+      );
+    }
+  }, [activeStep, selectedRoutine]);
+
+  const handleCardCheckClick = (index) => {
+    const updatedStatus = [...cardChecksStatus];
+    updatedStatus[index] = !updatedStatus[index];
+    setCardChecksStatus(updatedStatus);
+  };
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // Verifica si todas las CardCheck están marcadas antes de avanzar al siguiente paso
+    const allChecked = cardChecksStatus.every((status) => status);
+    if (allChecked) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   const handleBack = () => {
@@ -21,9 +49,6 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
   const handleReset = () => {
     setActiveStep(0);
   };
-
-
-
 
   return (
     <div>
@@ -39,7 +64,7 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
 
       <div className="flex justify-center">
         {activeStep === exerciseCount ? (
-          <div>
+          <div className="mx-auto">
             <p>¡Has completado todos los pasos!</p>
             <BasicButtons
               title="Reiniciar"
@@ -78,27 +103,24 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
 
                   <div>
                     <div className="mt-5 space-y-4">
-                      {Array.from(
-                        {
-                          length:
-                            selectedRoutine.exercises[activeStep]
-                              .selectedSeries,
-                        },
-                        (_, index) => (
-                          <div key={index}>
-                            <CardCheckbox
-                              set={index + 1}
-                              rep={
-                                selectedRoutine.exercises[activeStep]
-                                  .numberRepetitions
-                              }
-                              lib={
-                                selectedRoutine.exercises[activeStep].weightLoad
-                              }
-                            />
-                          </div>
-                        )
-                      )}
+                      {cardChecksStatus.map((checked, index) => (
+                        <div
+                          key={index}
+                          onClick={() => handleCardCheckClick(index)}
+                        >
+                          <CardCheck
+                            set={index + 1}
+                            rep={
+                              selectedRoutine.exercises[activeStep]
+                                .numberRepetitions
+                            }
+                            lib={
+                              selectedRoutine.exercises[activeStep].weightLoad
+                            }
+                            isChecked={checked}
+                          />
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -118,13 +140,21 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
                   activeStep === exerciseCount - 1 ? "Finalizar" : "Ok Set"
                 }
                 variant="contained"
-                onClick={handleNext}
+                onClick={() => {
+                  handleNext();
+                }}
                 icon={<i className="bx bx-check" />}
               />
             </div>
           </div>
         )}
       </div>
+      <SnackBarCustom
+        open={snackbarOpen} // Pass open state as prop
+        onClose={handleCloseSnackbar} // Pass close function as prop
+        severity="warning"
+        message="¡Completa todos los ejercicios, marca cada set!"
+      />
     </div>
   );
 };

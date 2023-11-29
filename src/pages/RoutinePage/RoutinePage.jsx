@@ -19,10 +19,10 @@ const RoutinePage = () => {
   }
 
    // Acceder a la informacion dentro del hook useRoutineContext()
-   const nameRoutine = Object.values(routineData.routines)[
+ /*   const nameRoutine = Object.values(routineData.routines)[
     Object.values(routineData.routines).length - 1
   ];
-
+ */
   return (
     <div className="justify-center relative">
       <div className="absolute md:mt-2 md:ml-8 ml-3">
@@ -32,8 +32,8 @@ const RoutinePage = () => {
       </div>
 
       <div className="mx-auto text-center mb-10">
-        <p className="uppercase mb-5 text-red font-medium mt-14 tracking-widest lg:mt-0 text-center">
-          Rutina -{/*  {nameRoutine.routineName} */}
+        <p className="uppercase mb-5 text-red font-medium mt-14 tracking-widest text-center">
+          Rutina - {/* {nameRoutine.routineName} */}
         </p>        
         <div>Timer</div>
       </div>

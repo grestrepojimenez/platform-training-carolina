@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const AccordionBar = ({ instructions }) => {
   return (
     <div className="flex justify-center">
-      <Accordion className="bg-black text-white text-xs tracking-wider w-full ">
+      <Accordion className="bg-black text-white text-xs tracking-wider w-96">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon className="text-red" />}
           aria-controls="panel1a-content"

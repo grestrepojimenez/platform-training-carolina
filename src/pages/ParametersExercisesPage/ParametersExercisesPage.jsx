@@ -166,12 +166,9 @@ const ParametersExercisesPage = () => {
                       }
                       maxRows={50}
                       isMultiline={true}
-                      defaultValue={nameRoutine.instructions}
+                      defaultValue={instructions}
                       contextType="routine"
                     />
-                    <p className="text-sm tracking-wide p-5 text-justify">
-                      {instructions}
-                    </p>
                   </div>
 
                   <div className="md:flex mt-5 mb-28 justify-center">

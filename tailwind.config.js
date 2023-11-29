@@ -16,7 +16,8 @@ export default {
       whiteOpacity: "#b0abab7f", // Color texto
       red: "#FD3C3D", //Color contraste
       redOpacity: "#fd3c3da8", //Color contraste
-      grey: "#F5F7F914" // Color Card
+      grey: "#F5F7F914", // Color Card
+      lime: "#65a30d" // Color check OK
     },
   },
   plugins: [],
