@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { Modal } from "@mui/material";
 
-import { useRoutineContext } from "../../hooks/useRoutineContext";
-import InputsBar from "../InputsBar/InputsBar";
-import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
+import { useRoutineContext } from "../../../hooks/useRoutineContext";
+import InputsBar from "../../InputsBar/InputsBar";
+import BasicButtons from "../../Buttons/BasicButtons/BasicButtons";
 
-const ModalBar = ({ open, handleClose, onClick }) => {
+const ModalCreateRoutine = ({ open, handleClose, onClick }) => {
   const { addRoutine, handleRoutineInputChange } = useRoutineContext(); // Uso de un enlace de contexto personalizado para acceder a rutinas
   const methods = useForm(); // Inicializando métodos de formulario usando el hook useForm
   const navigate = useNavigate(); // Accediendo a las funcionalidades de navegación usando el gancho hook
@@ -72,4 +72,4 @@ const ModalBar = ({ open, handleClose, onClick }) => {
   );
 };
 
-export default ModalBar;
+export default ModalCreateRoutine;

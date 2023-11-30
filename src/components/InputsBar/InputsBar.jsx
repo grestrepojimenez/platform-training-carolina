@@ -27,12 +27,13 @@ const InputsBar = ({
     formState: { errors },
   } = useFormContext();
 
-  const handleChange = (field, value) => {
+  const handleChange = (event) => {
+    const { value, name } = event.target; // Extract value and name from the event
     // Determina en qué contexto guardar la información según el prop 'contextType'
     if (contextType === "routine") {
-      handleRoutineInputChange(field, value);
+      handleRoutineInputChange(name, value); // Pass name and value to handleRoutineInputChange
     } else if (contextType === "user") {
-      handleInputChange(field, value);
+      handleInputChange(name, value); // Pass name and value to handleInputChange
     } else {
       console.log("Error! No se ingreso un Contexto existente");
     }

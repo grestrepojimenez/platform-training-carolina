@@ -11,7 +11,6 @@ export const useRoutineContext = () => {
 
 export const RoutineProvider = ({ children }) => {
   const [routineData, setRoutineData] = useState({ routines: {} });
-  const [trainingCount, setTrainingCount] = useState(0);
 
   useEffect(() => {
     const storedRoutineData =
@@ -76,7 +75,6 @@ export const RoutineProvider = ({ children }) => {
     updateLocalStorage(updatedRoutineData);
   };
 
-
   const removeRoutine = (routineName) => {
     const updatedRoutines = { ...routineData.routines };
     delete updatedRoutines[routineName];
@@ -108,24 +106,15 @@ export const RoutineProvider = ({ children }) => {
     updateLocalStorage(updatedRoutineData);
   };
 
-  const updateTrainingCount = (routineName) => {
-    const routine = routineData.routines[routineName];
-    if (routine) {
-      setTrainingCount(routine.exercises.length);
-    }
-  };
-
   return (
     <RoutineContext.Provider
       value={{
         routineData,
         handleRoutineInputChange,
-        trainingCount,
-        updateTrainingCount,
         addRoutine,
         removeRoutine,
         removeExercise,
-        addExerciseToRoutine, 
+        addExerciseToRoutine,
       }}
     >
       {children}

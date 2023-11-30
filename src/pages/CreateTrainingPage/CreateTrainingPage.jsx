@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useInputContext } from "../../hooks/useInputContext";
 import { Images } from "../../images/Images/Images";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
-import ModalBar from "../../components/ModalBar/ModalBar";
+import ModalCreateRoutine from "../../components/ModalBar/ModalCreateRoutine/ModalCreateRoutine";
 import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
 
 const CreateTrainingPage = () => {
@@ -76,7 +76,7 @@ const CreateTrainingPage = () => {
                     </Link>
                   </div>
                 </div>
-                <ModalBar
+                <ModalCreateRoutine
                   open={openModal}
                   handleClose={handleCloseModal}
                   onClick={handleCloseModal}

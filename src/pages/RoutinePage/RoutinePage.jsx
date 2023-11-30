@@ -18,24 +18,26 @@ const RoutinePage = () => {
     exerciseCount = selectedRoutine.exercises.length;
   }
 
-   // Acceder a la informacion dentro del hook useRoutineContext()
- /*   const nameRoutine = Object.values(routineData.routines)[
+  // Acceder a la informacion dentro del hook useRoutineContext()
+  /*   const nameRoutine = Object.values(routineData.routines)[
     Object.values(routineData.routines).length - 1
   ];
  */
   return (
     <div className="justify-center relative">
-      <div className="absolute md:mt-2 md:ml-8 ml-3">
+      <div className="absolute -mt-14 md:mt-2 md:ml-8 ml-3">
         <Link to="/trainingPlanPage">
           <ReturnButton />
         </Link>
       </div>
 
-      <div className="mx-auto text-center mb-10">
-        <p className="uppercase mb-5 text-red font-medium mt-14 tracking-widest text-center">
+      <div className="mx-auto text-center mb-3 tracking-wide ">
+        <p className="uppercase mb-5 text-red mt-20 md:mt-14 text-center text-xl">
+          Tu Entrenamiento
+        </p>
+        <p className="text-lg">
           Rutina - {/* {nameRoutine.routineName} */}
         </p>        
-        <div>Timer</div>
       </div>
 
       <div className="mx-auto">

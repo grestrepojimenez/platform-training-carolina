@@ -1,17 +1,27 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { Step, StepLabel, Stepper } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
+
 import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
 import CardTraining from "../Cards/CardTraining/CardTraining";
-import "./StepperTraining.css";
 import AccordionBar from "../AccordionBar/AccordionBar";
-import CardCheck from "../Cards/CardCheck/CardCheck";
+import CardCheck from "../Cards/CardCheckbox/CardCheck";
 import SnackBarCustom from "../SnackBarCustom/SnackBarCustom";
+import TimerBar from "../TimerBar/TimerBar";
+
+import "./StepperTraining.css";
+import ModalRoutine from "../ModalBar/ModalRoutine/ModalRoutine";
 
 const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [cardChecksStatus, setCardChecksStatus] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [stopTimer, setStopTimer] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [partyLoaded, setPartyLoaded] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (selectedRoutine && selectedRoutine.exercises) {
@@ -38,20 +48,91 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
     }
   };
 
+  const handleTimeElapsed = (elapsedTime) => {
+    setElapsedTime(elapsedTime); // Almacenar el tiempo transcurrido en el estado
+  };
+
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  useEffect(() => {
+    const loadPartyLibrary = () => {
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js";
+      script.async = true;
+
+      script.onload = () => {
+        setPartyLoaded(true);
+      };
+
+      document.body.appendChild(script);
+    };
+
+    loadPartyLibrary();
+  }, []);
+
+  const handleFinish = (totalSeconds) => {
+    setStopTimer(true); // Establecer el estado para detener el temporizador
+
+    const idDataRoutine = uuidv4();
+    const routineName = selectedRoutine.routineName;
+    const currentDate = new Date().toLocaleDateString();
+    const exerciseCount = selectedRoutine.exercises;
+    const seriesCount = selectedRoutine.selectedSeries;
+    const repetitionsCount = selectedRoutine.numberRepetitions;
+
+    // Convertir el totalSeconds a horas, minutos y segundos
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    // Crear un objeto con los datos de la rutina finalizada
+    const newDataRoutineFinished = {
+      id: idDataRoutine,
+      routineName,
+      currentDate,
+      elapsedTime: { hours, minutes, seconds },
+      exerciseCount, // Suponiendo que esta variable está definida en tu contexto
+      seriesCount,
+      repetitionsCount,
+    };
+
+    // Obtener datos actuales del localStorage
+    const storedData =
+      JSON.parse(localStorage.getItem("dataRoutineFinished")) || [];
+
+    // Agregar el nuevo objeto al arreglo existente
+    storedData.push(newDataRoutineFinished);
+
+    // Guardar el arreglo actualizado en el localStorage
+    localStorage.setItem("dataRoutineFinished", JSON.stringify(storedData));
+
+    if (partyLoaded && window.party) {
+      const confettiElement = document.getElementById("root");
+      window.party.confetti(confettiElement);
+    }
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
 
   return (
     <div>
+      <div className="pt-5">
+        <TimerBar
+          stopTimer={stopTimer}
+          onFinish={handleFinish}
+          onTimeElapsed={handleTimeElapsed}
+        />
+      </div>
+
       <div className="mb-10">
         <Stepper activeStep={activeStep} alternativeLabel>
           {Array.from({ length: exerciseCount }, (_, index) => (
@@ -63,14 +144,23 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
       </div>
 
       <div className="flex justify-center">
-        {activeStep === exerciseCount ? (
-          <div className="mx-auto">
-            <p>¡Has completado todos los pasos!</p>
-            <BasicButtons
-              title="Reiniciar"
-              variant="contained"
-              onClick={handleReset}
-            />
+        {activeStep === exerciseCount || stopTimer ? (
+          <div className="mx-auto text-center">
+            <p className="uppercase text-xl p-3 tracking-wide">
+              ¡Felicitaciones!
+            </p>
+            <p>Terminaste la rutina</p>
+
+            <div className="flex justify-center mt-5">
+              <BasicButtons
+                title="Listo"
+                variant="contained"
+                onClick={handleOpenModal}
+              />
+              <div>
+                <ModalRoutine open={openModal} handleClose={handleCloseModal} />
+              </div>
+            </div>
           </div>
         ) : (
           <div>
@@ -129,19 +219,16 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
 
             <div className="flex justify-center mt-5">
               <BasicButtons
-                title="Atras"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                variant="outlined"
-                icon={<i className="bx bx-arrow-back" />}
-              />
-              <BasicButtons
                 title={
                   activeStep === exerciseCount - 1 ? "Finalizar" : "Ok Set"
                 }
                 variant="contained"
                 onClick={() => {
-                  handleNext();
+                  if (activeStep === exerciseCount - 1) {
+                    handleFinish();
+                  } else {
+                    handleNext();
+                  }
                 }}
                 icon={<i className="bx bx-check" />}
               />
