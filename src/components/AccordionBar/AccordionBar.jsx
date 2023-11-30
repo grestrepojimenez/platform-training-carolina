@@ -11,7 +11,7 @@ const AccordionBar = ({ instructions }) => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <p className="font-thin text-sm">Instrucciones</p>
+          <p className="text-sm">Instrucciones</p>
         </AccordionSummary>
         <AccordionDetails>
           <p>{instructions}</p>

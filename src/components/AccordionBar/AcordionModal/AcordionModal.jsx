@@ -24,7 +24,7 @@ const AcordionModal = () => {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <p className="font-thin text-sm">Ejercicios Terminados</p>
+          <p className="text-sm">Ejercicios Terminados</p>
         </AccordionSummary>
 
         <AccordionDetails>

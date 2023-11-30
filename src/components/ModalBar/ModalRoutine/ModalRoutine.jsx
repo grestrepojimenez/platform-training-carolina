@@ -47,6 +47,7 @@ const ModalRoutine = ({ open, handleClose }) => {
                       </p>
                     </div>
                   </Card>
+                  
                   <Card className="bg-grey text-xs w-40 p-1 text-center">
                     <p className="text-white my-1">Dia Entrenamiento</p>
                     <div className="flex text-red justify-around">
