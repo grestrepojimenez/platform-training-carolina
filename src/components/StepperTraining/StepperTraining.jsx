@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Step, StepLabel, Stepper } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
+import { FormProvider, useForm } from "react-hook-form";
 
 import BasicButtons from "../Buttons/BasicButtons/BasicButtons";
 import CardTraining from "../Cards/CardTraining/CardTraining";
@@ -10,9 +11,11 @@ import AccordionBar from "../AccordionBar/AccordionBar";
 import CardCheck from "../Cards/CardCheckbox/CardCheck";
 import SnackBarCustom from "../SnackBarCustom/SnackBarCustom";
 import TimerBar from "../TimerBar/TimerBar";
+import InputsBar from "../InputsBar/InputsBar";
+import ModalRoutine from "../ModalBar/ModalRoutine/ModalRoutine";
+import RatingBar from "../RatingBar/RatingBar";
 
 import "./StepperTraining.css";
-import ModalRoutine from "../ModalBar/ModalRoutine/ModalRoutine";
 
 const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
   const [activeStep, setActiveStep] = useState(0);
@@ -22,6 +25,9 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [partyLoaded, setPartyLoaded] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const methods = useForm();
+  const [ratingValue, setRatingValue] = useState(null); // Nuevo estado para el valor del Rating
+  const [isFormValid, setIsFormValid] = useState(false); // Estado para rastrear la validez del formulario
 
   useEffect(() => {
     if (selectedRoutine && selectedRoutine.exercises) {
@@ -115,8 +121,49 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
     }
   };
 
+  // Función para manejar el cambio de valor en el RatingBar
+  const handleRatingChange = (newValue) => {
+    setRatingValue(newValue); // Actualiza el estado con el valor del Rating
+    // Verifica si todos los campos están completos y actualiza el estado de la validez del formulario
+    setIsFormValid(
+      newValue !== null &&
+        newValue !== 0 &&
+        methods.formState.isDirty &&
+        methods.formState.isValid
+    );
+  };
+
+  // Función que se ejecuta al enviar el formulario
+  const onSubmit = (data) => {
+    // Obtener comentarios almacenados en el localStorage (si existen)
+    let storedComment = JSON.parse(localStorage.getItem("commentData")) || [];
+
+    // Verifica si storedComment no es un array, si no lo es, inicialízalo como un array vacío
+    if (!Array.isArray(storedComment)) {
+      storedComment = [];
+    }
+
+    // Crear un nuevo objeto de comentarios con los datos del formulario y el valor del Rating
+    const newComment = {
+      name: data.name,
+      message: data.message,
+      rating: ratingValue, // Agrega el valor del Rating al objeto newComment
+    };
+
+    // Agregar el nuevo comentario al arreglo de comentarios almacenados
+    storedComment.push(newComment);
+
+    // Guardar el arreglo actualizado en el localStorage
+    localStorage.setItem("commentData", JSON.stringify(storedComment));
+
+    methods.reset();
+    handleOpenModal();
+  };
+
   const handleOpenModal = () => {
     setOpenModal(true);
+    const confettiElement = document.getElementById("root");
+    window.party.confetti(confettiElement);
   };
 
   const handleCloseModal = () => {
@@ -151,15 +198,52 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
             </p>
             <p>Terminaste la rutina</p>
 
-            <div className="flex justify-center mt-5">
-              <BasicButtons
-                title="Listo"
-                variant="contained"
-                onClick={handleOpenModal}
-              />
-              <div>
-                <ModalRoutine open={openModal} handleClose={handleCloseModal} />
-              </div>
+            <div className="flex text-red justify-center space-x-4 my-5">
+              <p className=" text-red text-lg tracking-wide text-center ">
+                Dejanos un comentario
+              </p>
+              <i className="bx bx-message-rounded-dots text-2xl" />
+            </div>
+
+            {/* Formulario de comentario */}
+            <FormProvider {...methods}>
+              <form onSubmit={methods.handleSubmit(onSubmit)}>
+                <div className="mt-5 w-60">
+                  <InputsBar
+                    id="name"
+                    label="Nombre"
+                    type="name"
+                    name="name"
+                    icon={<i className="bx bx-user" />}
+                    className="mb-4"
+                  />
+                  <InputsBar
+                    id="message"
+                    label="Comentario"
+                    type="text"
+                    name="message"
+                    icon={<i className="bx bx-file" />}
+                    className="mb-4 overflow-hidden w-60"
+                    maxRows={50}
+                    isMultiline={true}
+                  />
+                  <div className="absolute flex text-sm space-x-4 p-4 md:-ml-5 -ml-8 tracking-wider">
+                    <p className="mt-1"> Califica la rutina</p>
+                    <RatingBar onRatingChange={handleRatingChange} />
+                  </div>
+                </div>
+                <div className="xl:mt-16 mt-20 flex justify-center">
+                  <BasicButtons
+                    title="Listo"
+                    type="submit"
+                    variant="contained"
+                  />
+                </div>
+              </form>
+            </FormProvider>
+
+            <div>
+              <ModalRoutine open={openModal} handleClose={handleCloseModal} />
             </div>
           </div>
         ) : (

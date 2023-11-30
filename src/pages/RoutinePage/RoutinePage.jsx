@@ -3,6 +3,7 @@ import { useRoutineContext } from "../../hooks/useRoutineContext";
 import StepperTraining from "../../components/StepperTraining/StepperTraining";
 import NavBar from "../../layout/NavBar/NavBar";
 import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
+import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
 
 const RoutinePage = () => {
   const { routineName } = useParams();
@@ -19,10 +20,10 @@ const RoutinePage = () => {
   }
 
   // Acceder a la informacion dentro del hook useRoutineContext()
-  /*   const nameRoutine = Object.values(routineData.routines)[
+    const nameRoutine = Object.values(routineData.routines)[
     Object.values(routineData.routines).length - 1
   ];
- */
+
   return (
     <div className="justify-center relative">
       <div className="absolute -mt-14 md:mt-2 md:ml-8 ml-3">
@@ -50,6 +51,7 @@ const RoutinePage = () => {
       <div className="pb-24">
         <NavBar />
       </div>
+      <ScrollButton />
     </div>
   );
 };

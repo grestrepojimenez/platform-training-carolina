@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Card, CardContent, Modal } from "@mui/material";
-import AcordionModal from "../../AccordionBar/AcordionModal/AcordionModal";
+import { Link } from "react-router-dom";
 
+import AcordionModal from "../../AccordionBar/AcordionModal/AcordionModal";
+import BasicButtons from "../../Buttons/BasicButtons/BasicButtons";
 const ModalRoutine = ({ open, handleClose }) => {
   // Obtener datos del localStorage al renderizar el componente
   const storedData =
@@ -21,9 +23,9 @@ const ModalRoutine = ({ open, handleClose }) => {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <Card className="bg-black mx-5 my-8 lg:mx-80">
+        <Card className="bg-black mx-5 mt-20 lg:mx-80">
           <CardContent style={{ maxHeight: "70vh", overflowY: "auto" }}>
-            <div className="text-center mb-3 tracking-wide ">
+            <div className="text-center mb-3 mt-5 tracking-wide ">
               <h2 className="uppercase mb-5 text-red text-center text-xl">
                 ¡Gran Trabajo!
               </h2>
@@ -37,7 +39,7 @@ const ModalRoutine = ({ open, handleClose }) => {
                 </p>
                 <div className="flex justify-center space-x-8 mt-4 tracking-wide">
                   <Card className="bg-grey text-xs w-40 p-1 text-center">
-                    <p className="text-white mb-2">Tiempo Entrenamiento</p>
+                    <p className="text-white my-1">Tiempo Entrenamiento</p>
                     <div className="flex text-red justify-around">
                       <i className="bx bx-timer bx-tada text-lg" />
                       <p className="mt-1">
@@ -46,7 +48,7 @@ const ModalRoutine = ({ open, handleClose }) => {
                     </div>
                   </Card>
                   <Card className="bg-grey text-xs w-40 p-1 text-center">
-                    <p className="text-white mb-2">Dia Entrenamiento</p>
+                    <p className="text-white my-1">Dia Entrenamiento</p>
                     <div className="flex text-red justify-around">
                       <i className="bx bx-calendar bx-tada text-base" />
                       <p className="mt-1">{lastEntry.currentDate}</p>
@@ -58,9 +60,14 @@ const ModalRoutine = ({ open, handleClose }) => {
                   <AcordionModal />
                 </div>
 
-                <p className=" text-red text-base p-5 tracking-wide text-center ">
-                  Deja un comentario
-                </p>
+                <div className="flex justify-center p-5">
+                  <Link to="/lineTimeRoutinePage">
+                    <BasicButtons title="Progreso" variant="contained" />
+                  </Link>
+                  <Link to="/trainingPlanPage">
+                    <BasicButtons title="Rutinas" variant="outlined" />
+                  </Link>
+                </div>
               </>
             )}
           </CardContent>

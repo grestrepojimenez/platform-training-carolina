@@ -156,7 +156,7 @@ const ParametersExercisesPage = () => {
 
                     <InputsBar
                       id="instructions"
-                      label="Observaciones"
+                      label="Instrucciones"
                       type="text"
                       name="instructions"
                       icon={<i className="bx bx-file" />}
@@ -185,7 +185,9 @@ const ParametersExercisesPage = () => {
           </div>
         </div>
         <ScrollButton />
-        <NavBar />
+        <div className="pb-24">
+          <NavBar />
+        </div>
       </div>
     </>
   );

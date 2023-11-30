@@ -23,6 +23,7 @@ const ParameterList = () => {
     ],
     weightLoad: [
       { title: "Sin Peso", value: 0 },
+      { title: "Bandas Elasticas", value: 0 },
       { title: "10 Libras", value: 10 },
       { title: "20 Libras", value: 20 },
       { title: "25 Libras", value: 25 },

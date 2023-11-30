@@ -39,12 +39,12 @@ const CardTraining = ({
               </div>
 
               <div className="text-white ml-5 capitalize">
-                <h2 className="text-base">{name}</h2>
+                <h2 className="text-base lg:text-sm">{name}</h2>
                 <p className="text-xs">{primaryMuscles}</p>
                 <p className="mt-5 xl:mt-10 text-xs">{equipment}</p>
               </div>
 
-              <div className="absolute top-0 right-0 flex">
+              <div className="absolute top-16 right-0 flex">
                 <Tooltip title="Numero de ejercicio">
                   <div className=" w-6 h-6 rounded-full flex items-center justify-center border border-red">
                     <p className="text-xs text-red font-medium">

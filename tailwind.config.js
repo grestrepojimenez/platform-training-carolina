@@ -17,7 +17,10 @@ export default {
       red: "#FD3C3D", //Color contraste
       redOpacity: "#fd3c3da8", //Color contraste
       grey: "#F5F7F914", // Color Card
-      lime: "#65a30d" // Color check OK
+      limeHappy: "#a3e635", // Color Card
+      lime: "#65a30d", // Color check OK
+      warning: "#f97316", // Color advertencia
+      Yellow: "#fef08a"
     },
   },
   plugins: [],
