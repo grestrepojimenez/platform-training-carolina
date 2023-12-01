@@ -20,7 +20,7 @@ import { useAvatarContext } from "../../hooks/useAvatarContext";
 const pages = [
   { name: "Crear Rutina", ruta: "/createTrainingPage" },
   { name: "Plan Entrenamiento", ruta: "/trainingPlanPage" },
-  { name: "Comentarios", ruta: "/comments" },
+  { name: "Comentarios", ruta: "/commentsPage" },
   { name: "Cerrar Sesion", ruta: "/registerPage" },
 ];
 
