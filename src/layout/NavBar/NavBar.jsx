@@ -48,7 +48,7 @@ const NavBar = () => {
       link: "/trainingPlanPage",
     },
     {
-      label: "Nueva Rutina",
+      label: "Crear",
       value: "newRoutine",
       icon: <FitnessCenterIcon />,
       link: "/createTrainingPage",
