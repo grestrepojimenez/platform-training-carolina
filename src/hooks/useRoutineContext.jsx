@@ -75,6 +75,22 @@ export const RoutineProvider = ({ children }) => {
     updateLocalStorage(updatedRoutineData);
   };
 
+  const addGenerateoutines = (newRoutines) => {
+    const updatedRoutineData = {
+      ...routineData,
+      routines: {
+        ...routineData.routines,
+        ...newRoutines.reduce((acc, routine) => {
+          acc[routine.routineName] = routine;
+          return acc;
+        }, {}),
+      },
+    };
+  
+    setRoutineData(updatedRoutineData);
+    updateLocalStorage(updatedRoutineData);
+  };
+
   const removeRoutine = (routineName) => {
     const updatedRoutines = { ...routineData.routines };
     delete updatedRoutines[routineName];
@@ -106,8 +122,6 @@ export const RoutineProvider = ({ children }) => {
     updateLocalStorage(updatedRoutineData);
   };
 
-
-
   return (
     <RoutineContext.Provider
       value={{
@@ -117,6 +131,7 @@ export const RoutineProvider = ({ children }) => {
         removeRoutine,
         removeExercise,
         addExerciseToRoutine,
+        addGenerateoutines
       }}
     >
       {children}

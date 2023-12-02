@@ -10,7 +10,7 @@ import BasicButtons from "../../Buttons/BasicButtons/BasicButtons";
 const ModalCreateRoutine = ({ open, handleClose, onClick }) => {
   const { addRoutine, handleRoutineInputChange } = useRoutineContext(); // Uso de un enlace de contexto personalizado para acceder a rutinas
   const methods = useForm(); // Inicializando métodos de formulario usando el hook useForm
-  const navigate = useNavigate(); // Accediendo a las funcionalidades de navegación usando el gancho hook
+  const navigate = useNavigate(); // Accediendo a las funcionalidades de navegación usando el hook
 
   const onSubmit = (data) => {
     addRoutine(data.routineName); // Agregar la rutina usando el nombre proporcionado en el formulario

@@ -13,7 +13,7 @@ const CommentsPage = () => {
     <>
       <BannerNavBar />
       <div className="flex items-center justify-center text-red mb-2 mt-10 space-x-4 tracking-wider">
-        <h2 className="text-2xl">Comentarios</h2>
+        <h2 className="text-red tracking-wider text-xl lg:text-2xl font-medium uppercase mb-2">Comentarios</h2>
         <i className="bx bx-message-rounded-dots bx-tada text-2xl" />
       </div>
 

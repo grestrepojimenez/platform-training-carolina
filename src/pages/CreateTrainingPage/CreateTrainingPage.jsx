@@ -1,70 +1,93 @@
 import { useState } from "react";
 
 import { useInputContext } from "../../hooks/useInputContext";
-import { Images } from "../../images/Images/Images";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
 import ModalCreateRoutine from "../../components/ModalBar/ModalCreateRoutine/ModalCreateRoutine";
+import ModalGenerateRoutine from "../../components/ModalBar/ModalGenerateRoutine/ModalGenerateRoutine";
+
 import BannerNavBar from "../../layout/BannerNavBar/BannerNavBar";
 import NavBar from "../../layout/NavBar/NavBar";
 
 const CreateTrainingPage = () => {
   const { inputData } = useInputContext(); // Acceder al contexto
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalCreateRoutine, setOpenModalCreateRoutine] = useState(false);
+  const [openModalGenerateRoutine, setOpenModalGenerateRoutine] = useState(false);
 
-  const handleOpenModal = () => {
-    setOpenModal(true);
+  const handleOpenModalCreateRoutine = () => {
+    setOpenModalCreateRoutine(true);
   };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const handleCloseModalCreateRoutine = () => {
+    setOpenModalCreateRoutine(false);
+  };
+  
+  const handleOpenModalGenerateRoutine = () => {
+    setOpenModalGenerateRoutine(true);
+  };
+
+  const handleCloseModalGenerateRoutine = () => {
+    setOpenModalGenerateRoutine(false);
   };
 
   return (
-    <div
-      className="bg-cover bg-center bg-fixed w-screen h-screen"
-      style={{ backgroundImage: `url(${Images.bg_cratePage})` }}
-    >
+    <>
       <div>
         <BannerNavBar />
       </div>
 
-      <div className="mt-32 lg:mt-44">
+      <div className="mt-14">
         <div className="text-center xl:mb-5">
-
-          <h2 className=" text-red tracking-wider text-xl lg:text-2xl  uppercase mb-10">
+          <h2 className="text-red tracking-wider text-xl lg:text-2xl font-medium uppercase mb-2">
             Prepara tu rutina
           </h2>
 
-          <div className="flex items-center justify-center text-red text-lg mb-2 xl:mt-0 sm:mt-5 tracking-wider">
+          <div className="flex items-center justify-center text-red text-lg mb-2 mt-10 tracking-wider">
             <h2>¡ Hola ! {inputData.name}</h2>
             <i className="bx bx-dumbbell bx-tada text-2xl ml-2" />
           </div>
 
-          <p className="text-sm tracking-wider md:mb-5 sm:mb-10">
+          <p className="text-sm tracking-wider mb-20">
             Preparate, hoy es día de entrenamiento
           </p>
         </div>
 
-        <div className="md:flex justify-center mt-10">
-          <div className="flex flex-col items-center md:flex-row md:gap-4">
+        <div  className="flex justify-center">
+          <div>
+            <div >
+              <BasicButtons
+                title="Crear nueva Rutina"
+                variant="contained"
+                onClick={handleOpenModalCreateRoutine}
+              />
+            </div>
+          </div>
+          <ModalCreateRoutine
+            open={openModalCreateRoutine}
+            handleClose={handleCloseModalCreateRoutine}
+            onClick={handleCloseModalCreateRoutine}
+          />
+        </div>
+
+        <div  className="flex justify-center">
+          <div>
             <BasicButtons
-              title="Crear Rutina"
-              variant="contained"
-              onClick={handleOpenModal}
+              title="Rutina Aleatoria"
+              variant="outlined"
+              onClick={handleOpenModalGenerateRoutine}
             />
           </div>
+          <ModalGenerateRoutine
+            open={openModalGenerateRoutine}
+            onClick={handleCloseModalGenerateRoutine }
+            handleClose={handleCloseModalGenerateRoutine }
+          />
         </div>
-        <ModalCreateRoutine
-          open={openModal}
-          handleClose={handleCloseModal}
-          onClick={handleCloseModal}
-        />
       </div>
 
       <div className="pb-24">
         <NavBar />
       </div>
-    </div>
+    </>
   );
 };
 

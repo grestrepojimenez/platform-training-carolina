@@ -5,6 +5,14 @@ const ParameterList = () => {
       { title: "Intermedio", value: "intermediate" },
       { title: "Avanzado", value: "advanced" },
     ],
+    days: [
+      { title: "2 Dias", value: 2 },
+      { title: "3 Dias", value: 3 },
+      { title: "4 Dias", value: 4 },
+      { title: "5 Dias", value: 5 },
+      { title: "6 Dias", value: 6 },
+      { title: "7 Dias", value: 7 },
+    ],
     series: [
       { title: "2 Series", value: 2 },
       { title: "3 Series", value: 3 },

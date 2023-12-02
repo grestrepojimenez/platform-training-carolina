@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useRoutineContext } from "../../hooks/useRoutineContext";
 import NavBar from "../../layout/NavBar/NavBar";
 import CardPlanName from "../../components/Cards/CardPlanName/CardPlanName";
@@ -6,7 +5,7 @@ import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
 
 import BannerNavBar from "../../layout/BannerNavBar/BannerNavBar";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
-import ModalGenerateRoutine from "../../components/ModalBar/ModalGenerateRoutine/ModalGenerateRoutine";
+import { Link } from "react-router-dom";
 
 const TrainingPlanPage = () => {
   const { routineData } = useRoutineContext();
@@ -14,16 +13,6 @@ const TrainingPlanPage = () => {
   const routinesArray = routineData?.routines
     ? Object.values(routineData.routines)
     : [];
-
-  const [openModal, setOpenModal] = useState(false);
-
-  const handleOpenModal = () => {
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
 
   return (
     <>
@@ -37,12 +26,19 @@ const TrainingPlanPage = () => {
             Rutinas Entrenamiento
           </h2>
           {routinesArray.length === 0 && (
-            <p className="p-6">No hay rutinas disponibles</p>
+            <>
+              <div className="mt-20">
+                <p className="p-6">No hay rutinas disponibles</p>
+                <Link to="/createTrainingPage">
+                  <BasicButtons title="Generar Rutina" variant="contained" />
+                </Link>
+              </div>
+            </>
           )}
         </div>
 
         {routinesArray.length > 0 && (
-          <div className="flex mt-0 md:mt-0">
+          <div className="flex mt-12">
             <div className="mx-auto flex flex-wrap justify-center">
               {routinesArray.map(
                 (routine, index) =>
@@ -57,19 +53,6 @@ const TrainingPlanPage = () => {
             </div>
           </div>
         )}
-
-        <div className="flex justify-center mt-10">
-          <BasicButtons
-            title="Rutina aleatoria"
-            variant="contained"
-            onClick={handleOpenModal}
-          />
-          <ModalGenerateRoutine
-            open={openModal}
-            handleClose={handleCloseModal}
-            onClick={handleCloseModal}
-          />
-        </div>
 
         <ScrollButton />
         <div className="pb-24">

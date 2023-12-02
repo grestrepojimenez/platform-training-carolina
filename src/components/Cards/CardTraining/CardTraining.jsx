@@ -26,7 +26,7 @@ const CardTraining = ({
 
   return (
     <div className="p-1">
-      <Card className="bg-grey w-96 h-40 lg:h-44">
+      <Card className="bg-grey w-96 h-48 ">
         <CardContent className="relative">
           <div>
             <div className="relative flex pb-5">

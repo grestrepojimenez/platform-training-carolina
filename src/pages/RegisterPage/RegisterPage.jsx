@@ -1,6 +1,3 @@
-import { Link } from "react-router-dom";
-import { IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Images } from "../../images/Images/Images";
 import TabsBar from "../../components/TabsBar/TabsBar";
 import { TabsProvider } from "../../hooks/useTabsContext";
@@ -8,15 +5,7 @@ import { TabsProvider } from "../../hooks/useTabsContext";
 const RegisterPage = () => {
   return (
     <>
-      <header>
-        <div className="m-5">
-          <Link to="/">
-            <IconButton color="error">
-              <ArrowBackIcon />
-            </IconButton>
-          </Link>
-        </div>
-
+      <header className="mt-14">
         <div className="inset-0 items-center justify-center mb-10">
           <img
             className="sm:w-36 md:w-48 xl:w-52 sm:mx-auto"
