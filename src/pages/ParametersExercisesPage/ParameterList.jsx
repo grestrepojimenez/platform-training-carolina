@@ -1,5 +1,10 @@
 const ParameterList = () => {
   return {
+    levels: [
+      { title: "Principiante", value: "beginner" },
+      { title: "Intermedio", value: "intermediate" },
+      { title: "Avanzado", value: "advanced" },
+    ],
     series: [
       { title: "2 Series", value: 2 },
       { title: "3 Series", value: 3 },

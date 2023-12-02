@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { Step, StepLabel, Stepper } from "@mui/material";
+import { Button, Step, StepLabel, Stepper } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
+
 import { v4 as uuidv4 } from "uuid";
 import { FormProvider, useForm } from "react-hook-form";
 
@@ -28,6 +30,12 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
   const methods = useForm();
   const [ratingValue, setRatingValue] = useState(null); // Nuevo estado para el valor del Rating
   const [isFormValid, setIsFormValid] = useState(false); // Estado para rastrear la validez del formulario
+  const [buttonStyle, setButtonStyle] = useState({
+    backgroundColor: "#FD3C3D",
+    color: "#191A1F",
+  });
+  const [buttonText, setButtonText] = useState("Listo");
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(() => {
     if (selectedRoutine && selectedRoutine.exercises) {
@@ -157,6 +165,15 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
     localStorage.setItem("commentData", JSON.stringify(storedComment));
 
     methods.reset();
+
+    setButtonStyle({
+      backgroundColor: "#65a30d",
+      color: "#191A1F",
+    });
+
+    setButtonText("Ok Comentario");
+    setFormSubmitted(true);
+
     handleOpenModal();
   };
 
@@ -198,6 +215,7 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
             </p>
             <p>Terminaste la rutina</p>
 
+
             <div className="flex text-red justify-center space-x-4 my-5">
               <p className=" text-red text-lg tracking-wide text-center ">
                 Dejanos un comentario
@@ -233,11 +251,15 @@ const StepperTraining = ({ exerciseCount, selectedRoutine }) => {
                   </div>
                 </div>
                 <div className="xl:mt-16 mt-20 flex justify-center">
-                  <BasicButtons
-                    title="Listo"
+                  <Button
                     type="submit"
                     variant="contained"
-                  />
+                    color="error"
+                    style={buttonStyle}
+                    className="px-4"
+                  >
+                    {formSubmitted ? "Comentario enviado" : "Listo"}
+                  </Button>
                 </div>
               </form>
             </FormProvider>

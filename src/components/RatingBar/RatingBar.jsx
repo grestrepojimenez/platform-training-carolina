@@ -22,8 +22,8 @@ function getLabelText(value) {
   return `${value} Star${value !== 1 ? "s" : ""}, ${labels[value]}`;
 }
 
-const RatingBar = ({ onRatingChange }) => {
-  const [value, setValue] = useState(3.5);
+const RatingBar = ({ onRatingChange, defaultValue }) => {
+  const [value, setValue] = useState(defaultValue || 3.5);
   const [hover, setHover] = useState(-1);
 
   return (

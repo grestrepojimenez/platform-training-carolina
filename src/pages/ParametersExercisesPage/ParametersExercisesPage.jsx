@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
@@ -15,8 +15,8 @@ import CardExercises from "../../components/Cards/CardExercises/CardExercises";
 import InputsBar from "../../components/InputsBar/InputsBar";
 import BasicButtons from "../../components/Buttons/BasicButtons/BasicButtons";
 import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
-import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
 import ParameterList from "./ParameterList";
+import BannerNavBar from "../../layout/BannerNavBar/BannerNavBar";
 
 const ParametersExercisesPage = () => {
   const location = useLocation();
@@ -75,15 +75,13 @@ const ParametersExercisesPage = () => {
 
   return (
     <>
-      <div className="justify-center relative">
-        <div className="m-3 mt-10">
-          <Link to="/exercisesPage">
-            <ReturnButton />
-          </Link>
-        </div>
+      <div>
+        <BannerNavBar />
+      </div>
 
+      <div className="justify-center relative">
         <div>
-          <p className="uppercase mb-5 text-red font-medium mt-14 tracking-widest lg:mt-0 text-center">
+          <p className="uppercase mb-5 text-red font-medium mt-8 tracking-wider text-xl lg:text-2xl text-center ">
             Rutina - {nameRoutine.routineName}
           </p>
 

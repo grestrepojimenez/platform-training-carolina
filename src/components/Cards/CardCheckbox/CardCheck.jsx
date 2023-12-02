@@ -5,7 +5,7 @@ const CardCheck = ({ set, rep, lib, isChecked }) => {
   return (
     <CardActionArea>
       <div
-        className={`flex border rounded-md ${
+        className={`flex border rounded-md bg-black ${
           isChecked ? "border-lime " : "border-red"
         }`}
       >

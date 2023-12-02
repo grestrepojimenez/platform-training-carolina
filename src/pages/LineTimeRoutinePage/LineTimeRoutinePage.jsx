@@ -1,58 +1,57 @@
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
-import "react-vertical-timeline-component/style.min.css";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import NavBar from "../../layout/NavBar/NavBar";
+import { Chrono } from "react-chrono";
 import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
+import BannerNavBar from "../../layout/BannerNavBar/BannerNavBar";
+import NavBar from "../../layout/NavBar/NavBar";
 
 const LineTimeRoutinePage = () => {
   // Obtener datos del localStorage
   const storedData =
     JSON.parse(localStorage.getItem("dataRoutineFinished")) || [];
 
+  const chronoItems = storedData.map((data) => ({
+    title: data.currentDate,
+    cardTitle: data.routineName,
+    cardSubtitle: `${data.elapsedTime.hours}h ${data.elapsedTime.minutes}m ${data.elapsedTime.seconds}s`,
+  }));
+
   return (
-    <div>
-      <div>
-        <p className="uppercase mb-10 text-red mt-14 md:mt-14 text-center text-xl">
-          historial rutinas
-        </p>
-      </div>
+    <>
+      <BannerNavBar />
+      <div className="mt-10">
+        <h2 className=" text-red text-center  tracking-wider text-xl lg:text-2xl  uppercase mb-10">
+          Historial Rutina
+        </h2>
 
-      <div>
-        <VerticalTimeline>
-           {storedData.map((routine, index) => (
-            <VerticalTimelineElement
-              key={index}
-              className="vertical-timeline-element--work w-90"
-              contentStyle={{ background: "#F5F7F914" }}
-              contentArrowStyle={{ borderRight: "7px solid  #F5F7F914" }}
-              date={routine.currentDate} // Use la fecha de la rutina finalizada
-              iconStyle={{ background: "#191A1F", color: "#FD3C3D" }}
-              icon={<FitnessCenterIcon />}
-            >
-              <h3 className="vertical-timeline-element-title text-red tracking-wider">
-                {routine.routineName}
-              </h3>
-              <div className="vertical-timeline-element-subtitle mt-2 ">
-                <div className="flex text-white space-x-4">
-                  <i className="bx bx-timer bx-tada text-2xl" />
-                  <h5 className="text-xl">
-                    {`${routine.elapsedTime.hours}h:${routine.elapsedTime.minutes}m:${routine.elapsedTime.seconds}s`}
-                  </h5>
-                </div>
-              </div>
-            </VerticalTimelineElement>
-          ))}
-        </VerticalTimeline>
+        <div className="flex justify-center mx-auto w-96 tracking-wider font-light">
+          <Chrono
+            items={chronoItems}
+            mode="VERTICAL_ALTERNATING"
+            itemWidth={150}
+            fontSizes={{
+              cardSubtitle: "15px",
+              cardTitle: "15px",
+              title: "10px",
+            }}
+            theme={{
+              cardBgColor: "#2B2C31",
+              titleColor: "#b0abab",
+              titleColorActive: "#2B2C31",
+              iconBackgroundColor: "#b0abab",
+              detailsColor: "#b0abab",
+              cardTitleColor: "#FD3C3D",
+              cardSubtitleColor: "#b0abab",
+              primary: "#FD3C3D",
+              secondary: "#b0abab",
+            }}
+            cardHeight={80}
+          />
+        </div>
       </div>
-
+      <ScrollButton />
       <div className="pb-24">
         <NavBar />
       </div>
-      <ScrollButton />
-    </div>
+    </>
   );
 };
 

@@ -22,7 +22,7 @@ const CardPlanName = ({ routineName }) => {
                 aria-label="eliminar"
                 onClick={handleDelete}
               >
-                <i className="bx bx-trash" />
+                <i className="bx bx-trash text-xl" />
               </IconButton>
 
               <h3 className="text-white">{routineName}</h3>
@@ -30,7 +30,7 @@ const CardPlanName = ({ routineName }) => {
               <div>
                 <Link to={`/trainingStartPage/${routineName}`}>
                   <IconButton color="error" aria-label="ver rutina">
-                    <i className="bx bx-dumbbell" />
+                    <i className="bx bx-dumbbell text-2xl" />
                   </IconButton>
                 </Link>
               </div>

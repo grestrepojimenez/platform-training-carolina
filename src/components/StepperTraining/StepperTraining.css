@@ -1,8 +1,8 @@
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active,
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-    color: #FD3C3D;
+    color: #FD3C3D !important;
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root{
-    color: #F5F7F914;
+    color: #F5F7F914 !important;
 }

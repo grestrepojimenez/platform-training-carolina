@@ -1,221 +1,153 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   AppBar,
-  Avatar,
-  Badge,
-  Button,
-  Container,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
+  BottomNavigation,
+  BottomNavigationAction,
+  Card,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
   Tooltip,
+  useMediaQuery,
 } from "@mui/material";
-import styled from "@emotion/styled";
-import MenuIcon from "@mui/icons-material/Menu";
+import StorageIcon from "@mui/icons-material/Storage";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+
 import { Images } from "../../images/Images/Images";
-import { useAvatarContext } from "../../hooks/useAvatarContext";
-
-const pages = [
-  { name: "Crear Rutina", ruta: "/createTrainingPage" },
-  { name: "Plan Entrenamiento", ruta: "/trainingPlanPage" },
-  { name: "Comentarios", ruta: "/commentsPage" },
-  { name: "Cerrar Sesion", ruta: "/registerPage" },
-];
-
-const settings = [
-  { name: "Pixelito", avatar: Images.avatar_1 },
-  { name: "NeoFaro", avatar: Images.avatar_2 },
-  { name: "AstraVisor", avatar: Images.avatar_3 },
-  { name: "TechNova", avatar: Images.avatar_4 },
-];
-// Estilos para el estado activo
-const StyledBadge = styled(Badge)(() => ({
-  "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
-    boxShadow: `0 0 0 1px #44b700`,
-    "&::after": {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      borderRadius: "50%",
-      animation: "ripple 1.2s infinite ease-in-out",
-      border: "1px solid currentColor",
-      content: '""',
-    },
-  },
-  "@keyframes ripple": {
-    "0%": {
-      transform: "scale(.8)",
-      opacity: 1,
-    },
-    "100%": {
-      transform: "scale(2.4)",
-      opacity: 0,
-    },
-  },
-}));
+import "./NavBar.css";
 
 const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const { selectedAvatar, setSelectedAvatar } = useAvatarContext();
+  const [value, setValue] = useState("recents");
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [openDrawer, setOpenDrawer] = useState(!isMobile);
+  const location = useLocation();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  useEffect(() => {
+    // Actualizar el valor basado en la ruta actual
+    const currentPath = location.pathname;
+    const selectedItem = menuItems.find((item) => item.link === currentPath);
+    if (selectedItem) {
+      setValue(selectedItem.value);
+    }
+  }, [location]);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  const menuItems = [
+    {
+      label: "Rutinas",
+      value: "rutinas",
+      icon: <StorageIcon />,
+      link: "/trainingPlanPage",
+    },
+    {
+      label: "Nueva Rutina",
+      value: "newRoutine",
+      icon: <FitnessCenterIcon />,
+      link: "/createTrainingPage",
+    },
+    {
+      label: "Historial",
+      value: "lineTime",
+      icon: <TimelineIcon />,
+      link: "/lineTimeRoutinePage",
+    },
+    {
+      label: "Comentarios",
+      value: "comment",
+      icon: <CommentOutlinedIcon />,
+      link: "/commentsPage",
+    },
+  ];
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  const handleAvatarChange = (avatar) => {
-    setSelectedAvatar(avatar);
-    handleCloseUserMenu();
-  };
-  return (
-    <AppBar
-      position="fixed"
-      className="bg-black pb-2"
-      sx={{ top: "auto", bottom: 0 }}
+  const renderMobileMenu = (
+    <BottomNavigation
+      sx={{ width: 500, background: "#191A1F" }}
+      value={value}
+      onChange={handleChange}
     >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters className="flex justify-between items-center">
-          {/* Menu Escritorio */}
-          <div className="hidden lg:block">
-            <Link to="/">
-              <img className="w-24" src={Images.logo} alt="logo training" />
-            </Link>
-          </div>
+      {menuItems.map((item) => (
+        <BottomNavigationAction
+          key={item.value}
+          label={item.label}
+          value={item.value}
+          icon={item.icon}
+          component={Link}
+          to={item.link}
+          sx={{
+            "& .MuiBottomNavigationAction-label": {
+              color: value === item.value ? "#FD3C3D" : "#b0abab", // Color activo / inactivo
+            },
+            "& .MuiSvgIcon-root": {
+              fill: value === item.value ? "#FD3C3D" : "#b0abab", // Color del icono activo / inactivo
+              width: "20px",
+            },
+          }}
+        />
+      ))}
+    </BottomNavigation>
+  );
 
-          {/* Menu hamburguesa */}
-          <div className="lg:hidden text-red">
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
+  const renderDesktopMenu = (
+    <Card>
+      <Drawer
+        variant="persistent"
+        anchor="left"
+        open={openDrawer}
+        onClose={() => setOpenDrawer(false)}
+        className="bg-black"
+      >
+        <Link to="/">
+          <div className="flex justify-center pt-8 pl-5 px-3 mb-32">
+            <img className="w-20" src={Images.logo} alt="logo training" />
+          </div>
+        </Link>
+
+        <List>
+          {menuItems.map((item) => (
+            <ListItem
+              key={item.value}
+              button
+              selected={value === item.value}
+              onClick={(event) => handleChange(event, item.value)}
+              component={Link}
+              to={item.link}
             >
-              <MenuIcon />
-            </IconButton>
+              <Tooltip title={item.label} placement="right">
+                <ListItemIcon className="text-white flex justify-center ml-3 py-2 px-3">
+                  {item.icon}
+                </ListItemIcon>
+              </Tooltip>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </Card>
+  );
 
-            <Menu
-              sx={{ mt: "-65px" }}
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              PaperProps={{
-                className: "bg-black",
-              }}
-              className="xs:flex lg:hidden"
-            >
-              {pages.map((page) => (
-                <Link key={page.name} to={page.ruta}>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    className="text-red flex font-normal"
-                  >
-                    {page.name}
-                  </Button>
-                </Link>
-              ))}
-            </Menu>
-          </div>
-
-          {/* Menu dispositivos pequeños */}
-          <div className="flex items-center justify-center">
-            <Link to="/">
-              <img
-                className="w-20  xl:hidden"
-                src={Images.logo}
-                alt="logo training"
-              />
-            </Link>
-          </div>
-
-          {/* Items Menu Escritorio  */}
-          <div className="hidden lg:flex text-red ml-96">
-            {pages.map((page) => (
-              <Link key={page.name} to={page.ruta}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  className="text-red flex font-normal"
-                >
-                  {page.name}
-                </Button>
-              </Link>
-            ))}
-          </div>
-
-          {/* Avatar */}
-          <div>
-            <Tooltip title="Selecciona Avatar">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <StyledBadge
-                  overlap="circular"
-                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                  variant="dot"
-                >
-                  <Avatar alt="avatar" src={selectedAvatar} />
-                </StyledBadge>
-              </IconButton>
-            </Tooltip>
-
-            <Menu
-              sx={{ mt: "-65px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-              PaperProps={{
-                className: "bg-black",
-              }}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting.name}
-                  onClick={() => handleAvatarChange(setting.avatar)}
-                >
-                  <Avatar alt={setting.name} src={setting.avatar} />
-                </MenuItem>
-              ))}
-            </Menu>
-          </div>
-        </Toolbar>
-      </Container>
-    </AppBar>
+  return (
+    <>
+      <AppBar
+        position="fixed"
+        className="bg-black pb-2"
+        sx={{
+          top: "auto",
+          bottom: 0,
+          flexDirection: isMobile ? "row" : "column",
+          justifyContent: isMobile ? "space-around" : "flex-start",
+          alignItems: isMobile ? "center" : "flex-start",
+        }}
+      >
+        {isMobile ? renderMobileMenu : renderDesktopMenu}
+      </AppBar>
+    </>
   );
 };
 

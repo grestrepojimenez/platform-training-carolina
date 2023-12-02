@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import NavBar from "../../layout/NavBar/NavBar";
 import { useRoutineContext } from "../../hooks/useRoutineContext";
@@ -10,6 +10,7 @@ import exercisesData from "../../__mocks__/exercisesData.json";
 import CardExercises from "../../components/Cards/CardExercises/CardExercises";
 import ScrollButton from "../../components/Buttons/ScrollButton/ScrollButton";
 import ReturnButton from "../../components/Buttons/ReturnButton/ReturnButton";
+import BannerNavBar from "../../layout/BannerNavBar/BannerNavBar";
 
 const ExercisesPage = () => {
   const { routineData } = useRoutineContext();
@@ -31,15 +32,13 @@ const ExercisesPage = () => {
 
   return (
     <>
-      <div className="justify-center relative">
-        <div className="absolute md:mt-2 md:ml-8 ml-3">
-          <Link to="/createTrainingPage">
-            <ReturnButton />
-          </Link>
-        </div>
+      <div>
+        <BannerNavBar />
+      </div>
 
+      <div className="justify-center relative">
         <div className="mx-auto text-center">
-          <p className="uppercase mb-5 text-red font-medium mt-14 ">
+          <p className="uppercase mb-5 text-red font-medium mt-14 tracking-wider text-xl lg:text-2xl ">
             Rutina - {nameRoutine.routineName}
           </p>
           <p>Selecciona los ejercicios para la rutina</p>

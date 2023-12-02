@@ -17,14 +17,14 @@ const AcordionModal = () => {
   const lastEntry = storedData[storedData.length - 1];
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mb-5">
       <Accordion className="bg-black text-white text-xs tracking-wider w-96">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon className="text-red" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <p className="text-sm">Ejercicios Terminados</p>
+          <p className="text-sm">Ejercicios Realizados</p>
         </AccordionSummary>
 
         <AccordionDetails>

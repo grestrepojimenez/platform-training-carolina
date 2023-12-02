@@ -1,0 +1,17 @@
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+    background-color: #191A1F !important;
+}
+
+.css-imwso6-MuiBottomNavigationAction-label.Mui-selected {
+    font-size: 12px !important;
+    letter-spacing: 0.5px !important;
+    padding-top: 3px;
+}
+
+.css-i4bv87-MuiSvgIcon-root {
+    font-size: 20px !important;
+}
+
+.css-i4bv87-MuiSvgIcon-root:hover{
+    color: #FD3C3D !important;
+}

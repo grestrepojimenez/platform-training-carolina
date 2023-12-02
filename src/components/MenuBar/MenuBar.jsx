@@ -66,7 +66,7 @@ const MenuBar = ({ title, list, exercisesData, setFilteredExercises }) => {
         onClick={handleToggle}
         endIcon={<i className="bx bx-chevron-down" />}
         color="error"
-        className="capitalize font-light tracking-wider "
+        className="capitalize tracking-wider "
       >
         {title}
       </Button>
