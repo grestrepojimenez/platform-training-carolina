@@ -21,7 +21,7 @@ const HomePage = () => {
     <>
       {showLoader && <Loader />}
       {showHomePage && (
-        <header className="relative">
+        <div className="relative">
           <div className="w-full h-screen relative flex flex-col justify-center items-center">
             {/* Imagen fondo */}
             <img
@@ -44,13 +44,13 @@ const HomePage = () => {
                   <BasicButtons
                     title="Entrenemos"
                     variant="contained"
-                    icon={<i className="bx bx-chevron-right"/>}
+                    icon={<i className="bx bx-chevron-right" />}
                   />
                 </Link>
               </div>
             </div>
           </div>
-        </header>
+        </div>
       )}
     </>
   );

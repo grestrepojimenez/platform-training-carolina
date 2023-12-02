@@ -10,6 +10,7 @@ import TrainingStartPage from "../pages/TrainingStartPage/TrainingStartPage";
 import RoutinePage from "../pages/RoutinePage/RoutinePage";
 import LineTimeRoutinePage from "../pages/LineTimeRoutinePage/LineTimeRoutinePage";
 import CommentsPage from "../pages/CommentsPage/CommentsPage";
+import NotFoundPage from "../layout/NotFoundPage/NotFoundPage";
 
 const Router = () => {
   return (
@@ -33,6 +34,7 @@ const Router = () => {
         <Route path="/routinePage/:routineName" element={<RoutinePage/>} />
         <Route path="/lineTimeRoutinePage" element={<LineTimeRoutinePage />} />
         <Route path="/commentsPage" element={<CommentsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

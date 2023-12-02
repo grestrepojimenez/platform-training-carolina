@@ -4,7 +4,7 @@ import { Images } from "../../images/Images/Images";
 const Loader = () => {
   dotStream.register();
   return (
-    <div className="">
+    <div>
       <div className="w-full h-screen relative bg-black">
         {/* Logo */}
         <div className="absolute inset-0 items-center justify-center mt-48">

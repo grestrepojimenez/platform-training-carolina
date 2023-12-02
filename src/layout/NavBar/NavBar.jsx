@@ -17,6 +17,7 @@ import StorageIcon from "@mui/icons-material/Storage";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import TimelineIcon from "@mui/icons-material/Timeline";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+import Autor from "../Autor/Autor";
 
 import { Images } from "../../images/Images/Images";
 import "./NavBar.css";
@@ -68,32 +69,34 @@ const NavBar = () => {
   ];
 
   const renderMobileMenu = (
-    <BottomNavigation
-      sx={{ width: 500, background: "#191A1F" }}
-      value={value}
-      onChange={handleChange}
-    >
-      {menuItems.map((item) => (
-        <BottomNavigationAction
-          key={item.value}
-          label={item.label}
-          value={item.value}
-          icon={item.icon}
-          component={Link}
-          to={item.link}
-          sx={{
-            "& .MuiBottomNavigationAction-label": {
-              color: value === item.value ? "#FD3C3D" : "#b0abab", // Color activo / inactivo
-              fontSize: "8px"
-            },
-            "& .MuiSvgIcon-root": {
-              fill: value === item.value ? "#FD3C3D" : "#b0abab", // Color del icono activo / inactivo
-              width: "20px",
-            },
-          }}
-        />
-      ))}
-    </BottomNavigation>
+    <>
+      <BottomNavigation
+        sx={{ width: 500, background: "#191A1F" }}
+        value={value}
+        onChange={handleChange}
+      >
+        {menuItems.map((item) => (
+          <BottomNavigationAction
+            key={item.value}
+            label={item.label}
+            value={item.value}
+            icon={item.icon}
+            component={Link}
+            to={item.link}
+            sx={{
+              "& .MuiBottomNavigationAction-label": {
+                color: value === item.value ? "#FD3C3D" : "#b0abab", // Color activo / inactivo
+                fontSize: "8px",
+              },
+              "& .MuiSvgIcon-root": {
+                fill: value === item.value ? "#FD3C3D" : "#b0abab", // Color del icono activo / inactivo
+                width: "20px",
+              },
+            }}
+          />
+        ))}
+      </BottomNavigation>
+    </>
   );
 
   const renderDesktopMenu = (
@@ -148,6 +151,9 @@ const NavBar = () => {
       >
         {isMobile ? renderMobileMenu : renderDesktopMenu}
       </AppBar>
+      <div className="mt-14">
+        <Autor />
+      </div>
     </>
   );
 };
