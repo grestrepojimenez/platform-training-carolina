@@ -84,6 +84,7 @@ const NavBar = () => {
           sx={{
             "& .MuiBottomNavigationAction-label": {
               color: value === item.value ? "#FD3C3D" : "#b0abab", // Color activo / inactivo
+              fontSize: "8px"
             },
             "& .MuiSvgIcon-root": {
               fill: value === item.value ? "#FD3C3D" : "#b0abab", // Color del icono activo / inactivo
