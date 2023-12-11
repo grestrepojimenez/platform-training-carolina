@@ -2,7 +2,7 @@
 
 ### Plataforma de Gestión de Ejercicios y Rutinas de Fitness
 
-![image](https://i.postimg.cc/V63MW2ZP/Movil-Registro.png)
+![image](https://i.postimg.cc/3xn7Z3Ws/Registro.png)
 
 **First Mobile y Responsive Web** 
 _La plataforma se realizo primero para moviles, pero tiene un diseño responsive para mejor navegacion_
@@ -11,7 +11,7 @@ _La plataforma se realizo primero para moviles, pero tiene un diseño responsive
 
 ## Despliegue 📦
 
-- [Figma](https://www.figma.com/file/iaDDH8T5tzj08DbPMtYxsG/Plataforma-Training?type=design&node-id=0-1&mode=design&t=hlSKGUCce4vFQVOP-0) - Diseño UX UI
+- [Figma](https://www.figma.com/proto/iaDDH8T5tzj08DbPMtYxsG/Plataforma-Training?type=design&node-id=338-1155&t=GCQLXaVLSbw75053-0&scaling=scale-down&page-id=136%3A1501&starting-point-node-id=338%3A1155) - Diseño UX UI
 - [Despligue URL](https://platform-training.vercel.app/) - Despliegue Web site
 
 ## Construido con 🛠️
@@ -34,11 +34,6 @@ _Las herramientas con las que se construyo el proyecto son_
 
 ## Requerimientos 📄
 
-**Contexto:**
-Eres un desarrollador/a trabajando para una empresa especializada en fitness. La empresa desea crear una aplicación web que permita a los usuarios planificar y seguir sus ejercicios y rutinas de fitness de manera efectiva.
-
-**Requisitos:**
-
 **Funcionalidad:**
 
 1. **Visualización de Ejercicios y Rutinas:**
@@ -56,8 +51,6 @@ Eres un desarrollador/a trabajando para una empresa especializada en fitness. La
 
 1. **Comentarios en Ejercicios y Rutinas:**
    - Los usuarios deben poder dejar comentarios en los ejercicios y rutinas de otros usuarios.
-2. **Compartir Rutinas:**
-   - Implementa la capacidad de compartir rutinas entre usuarios.
 
 **Filtrado de Ejercicios y Rutinas:**
 
@@ -72,20 +65,6 @@ Eres un desarrollador/a trabajando para una empresa especializada en fitness. La
    - Debe haber una sincronización del estado global que refleje el número total de ejercicios, el número de rutinas creadas y el número de rutinas compartidas.
 2. **Persistencia de Datos:**
    - La aplicación debe persistir los datos de ejercicios, rutinas, comentarios y registros de progreso en el almacenamiento local del navegador. Al recargar la página, la información debe mantenerse.
-
-**Desafíos Adicionales:**
-
-1. **Búsqueda de Ejercicios y Rutinas:** Implementa una funcionalidad de búsqueda en la lista de ejercicios y rutinas disponibles.
-2. **Ranking de Rutinas Más Populares:** Crea un ranking de las rutinas más populares basado en la cantidad de usuarios que las han realizado y han dejado comentarios positivos.
-3. **Diseño Responsive:** Asegúrate de que el diseño de la aplicación sea responsive para su uso en diferentes dispositivos.
-
-**Consejos sobre el Código:**
-
-1. **Estructura del Código:** Organiza el código de manera clara y modular para facilitar la lectura y el mantenimiento.
-2. **Semántica HTML:** Utiliza HTML semántico para mejorar la accesibilidad.
-3. **Pensando en Equipo:** Documenta tu proyecto de manera mínima pero efectiva. Añade comentarios donde sea necesario y organiza scripts en el **`package.json`**
-4. **Formateo del Código:** Utiliza herramientas como Prettier para asegurarte de que el código esté formateado de manera consistente.
-5. **Preparado para Producción:** Optimiza el código y asegúrate de que la aplicación esté lista para producción.
 
 <hr>
 
